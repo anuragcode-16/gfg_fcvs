@@ -1,0 +1,26 @@
+# Core
+python-dotenv
+pydantic
+httpx
+requests
+tenacity
+
+# Scraping
+beautifulsoup4
+lxml
+selenium
+undetected-chromedriver
+playwright
+scrapling
+PyMuPDF
+
+# Search
+duckduckgo-search
+
+# LLM
+openai
+
+# Frontend
+streamlit
+plotly
+pandas
