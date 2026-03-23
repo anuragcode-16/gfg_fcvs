@@ -24,7 +24,7 @@ def _is_blocked(url: str) -> bool:
     domain = urlparse(url).netloc.lower().replace("www.", "")
     return any(blocked in domain for blocked in DOMAIN_BLOCKLIST)
 
-# --- TIER 1: BS4 ---
+# --- FALLBACK 1: BS4 (fast, lightweight) ---
 @retry(stop=stop_after_attempt(2), wait=wait_fixed(1))
 def scrape_bs4(url: str, timeout: int = 8) -> str:
     try:
@@ -42,7 +42,7 @@ def scrape_bs4(url: str, timeout: int = 8) -> str:
         logger.debug(f"BS4 failed for {url}: {e}")
         return None
 
-# --- TIER 2: Selenium ---
+# --- FALLBACK 2: Selenium (JS-rendered) ---
 def scrape_selenium(url: str, timeout: int = 15) -> str:
     try:
         import undetected_chromedriver as uc
@@ -62,7 +62,7 @@ def scrape_selenium(url: str, timeout: int = 15) -> str:
         logger.debug(f"Selenium failed for {url}: {e}")
         return None
 
-# --- TIER 3: Playwright ---
+# --- FALLBACK 3: Playwright (stealth JS) ---
 def scrape_playwright(url: str, timeout: int = 20) -> str:
     try:
         from playwright.sync_api import sync_playwright
@@ -78,7 +78,7 @@ def scrape_playwright(url: str, timeout: int = 20) -> str:
         logger.debug(f"Playwright failed for {url}: {e}")
         return None
 
-# --- TIER 4: Scrapling ---
+# --- FALLBACK 4: Scrapling (last resort) ---
 def scrape_scrapling(url: str) -> str:
     try:
         from scrapling import StealthyFetcher, Adaptor

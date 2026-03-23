@@ -4,7 +4,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from frontend.utils import inject_custom_css
 import streamlit as st
 
-st.set_page_config(page_title="Live Pipeline", layout="wide", page_icon="⚡")
+st.set_page_config(page_title="Live Pipeline", layout="wide")
 
 inject_custom_css()
 

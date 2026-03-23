@@ -8,7 +8,7 @@ import json
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="FactCheck Engine",
-    page_icon="🔍",
+
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -49,7 +49,7 @@ input_pdf_bytes = b""
 
 with tab_text:
     input_text = st.text_area("Paste any text, article, or claim-rich document:", height=200, placeholder="Paste news article here...", key="input_text_area")
-    if input_text: st.caption(f"📊 {len(input_text.split())} words")
+    if input_text: st.caption(f"{len(input_text.split())} words")
 
 with tab_url:
     input_url = st.text_input("Enter article / news URL:", placeholder="https://example.com/news-article", key="input_url_field")
@@ -134,7 +134,7 @@ if verify_clicked and has_input:
                 if prev_idx > 0: done_stages.add(STAGES[prev_idx - 1][0])
 
         progress_bar.progress(pct / 100)
-        status_text.markdown(f'<div style="font-family:IBM Plex Mono,monospace;color:#E36A6A;font-size:0.85rem;">{message}</div>', unsafe_allow_html=True)
+        status_text.markdown(f'<div style="font-family:JetBrains Mono,monospace;color:#E36A6A;font-size:0.85rem;">{message}</div>', unsafe_allow_html=True)
         render_stages(stage, done_stages)
         log_messages.append(f"[{pct:3d}%] {message}")
         st.session_state.pipeline_log = log_messages.copy()
@@ -169,7 +169,7 @@ if verify_clicked and has_input:
 
         # Check if stopped
         if st.session_state.stop_requested:
-            st.error("⚠️ Analysis was stopped by user.")
+            st.error("Analysis was stopped by user.")
         
         # Mark all done
         for s in STAGES: done_stages.add(s[0])

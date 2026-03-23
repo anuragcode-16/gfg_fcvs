@@ -6,7 +6,7 @@ from frontend.utils import inject_custom_css
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="History — FactCheck Engine", layout="wide", page_icon="📁")
+st.set_page_config(page_title="History — FactCheck Engine", layout="wide")
 
 inject_custom_css()
 
@@ -14,7 +14,8 @@ inject_custom_css()
 # Native Streamlit navigation is used instead of custom page links.
 
 # ── Page Header ────────────────────────────────────────────────────────────────
-st.markdown('<div style="font-family:IBM Plex Mono,monospace;color:#E36A6A;font-size:0.75rem;letter-spacing:2px;">SESSION ARCHIVE</div>', unsafe_allow_html=True)
+
+
 st.markdown("# History")
 
 # ── Retrieve History ───────────────────────────────────────────────────────────
@@ -27,9 +28,9 @@ else:
 
 if not history:
     st.markdown("""
-    <div style="text-align:center;padding:4rem;font-family:'Plus Jakarta Sans',sans-serif;color:#334155;">
+    <div style="text-align:center;padding:4rem;font-family:'Plus Jakarta Sans',sans-serif;color:#888888;">
       <div style="font-size:1.5rem;margin-top:0.5rem;font-weight:600;">No sessions yet.</div>
-      <div style="font-size:0.9rem;color:#1e2d4a;margin-top:0.25rem;">Run a fact-check from the Home page.</div>
+      <div style="font-size:0.9rem;color:#888888;margin-top:0.25rem;">Run a fact-check from the Home page.</div>
     </div>
     """, unsafe_allow_html=True)
     st.stop()
@@ -66,7 +67,6 @@ for i, s in enumerate(reversed(history)):
         "PARTIAL": vc.get("PARTIALLY TRUE", 0),
         "UNVERIF.": vc.get("UNVERIFIABLE", 0),
         "AI Prob": f"{s.get('ai_detection', {}).get('ensemble_probability', 0):.0f}%",
-        "Completed": s.get("completed_at", "")[:19] if s.get("completed_at") else "",
     })
 
 df = pd.DataFrame(rows)
@@ -83,24 +83,30 @@ st.dataframe(
 st.markdown("---")
 st.markdown("### Load a Session")
 session_ids = [s.get("session_id") for s in history]
-selected_id = st.selectbox("Select session to load:", session_ids[::-1])
+
+load_col1, load_col2 = st.columns([7, 3])
+with load_col1:
+    selected_id = st.selectbox("Select session to load:", session_ids[::-1])
+with load_col2:
+    st.markdown("<div style='height: 1.6rem;'></div>", unsafe_allow_html=True)
+    load_clicked = st.button("Load Session into Report View", use_container_width=True)
 
 if selected_id:
     selected = next((s for s in history if s.get("session_id") == selected_id), None)
     if selected:
-        if st.button("Load this session into Report view"):
+        if load_clicked:
             st.session_state.session_result = selected
             st.switch_page("pages/2_Report.py")
 
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns([3, 1])
         with col1:
-            st.markdown(f"**Summary:** {selected.get('document_summary','N/A')}")
-            st.markdown(f"**Narrative:** {selected.get('narrative','')[:200]}...")
+            summary = selected.get('document_summary') or selected.get('narrative', '')
+            st.markdown(f"**Summary:** {summary}")
         with col2:
             vc = selected.get("verdict_counts", {})
-            st.markdown("**Verdict Breakdown:**")
+            st.markdown("**Verdicts:**")
             for verdict, count in vc.items():
                 if count > 0:
-                    colors = {"TRUE":"#10b981","FALSE":"#ef4444","PARTIALLY TRUE":"#f59e0b","UNVERIFIABLE":"#94a3b8"}
-                    c = colors.get(verdict, "#94a3b8")
-                    st.markdown(f'<span style="color:{c};font-family:IBM Plex Mono,monospace;font-size:0.9rem;">● {verdict}: {count}</span>', unsafe_allow_html=True)
+                    colors = {"TRUE":"#10b981","FALSE":"#ef4444","PARTIALLY TRUE":"#f59e0b","UNVERIFIABLE":"#9CA3AF"}
+                    c = colors.get(verdict, "#9CA3AF")
+                    st.markdown(f'<span style="color:{c};font-family:JetBrains Mono,monospace;font-size:0.85rem;">{verdict}: {count}</span>', unsafe_allow_html=True)
