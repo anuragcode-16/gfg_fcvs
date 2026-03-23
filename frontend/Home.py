@@ -1,6 +1,7 @@
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from frontend.utils import inject_custom_css
 import streamlit as st
 import json
 
@@ -13,20 +14,7 @@ st.set_page_config(
 )
 
 # ── Global CSS ────────────────────────────────────────────────────────────────
-st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
-html, body, [class*="css"] { font-family: 'DM Sans', sans-serif !important; }
-.stApp { background: #080b14; color: #e2e8f0; }
-#MainMenu, footer, header { visibility: hidden; }
-.fc-hero { font-family: 'IBM Plex Mono', monospace !important; font-size: 3.2rem; font-weight: 700; color: #e2e8f0; line-height: 1.1; margin-bottom: 0.5rem; }
-.fc-hero span { color: #3b82f6; }
-.fc-subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; color: #64748b; margin-bottom: 2rem; }
-.terminal-box { background: #020408; border: 1px solid #1e2d4a; border-radius: 8px; padding: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #22c55e; max-height: 250px; overflow-y: auto; line-height: 1.7; }
-.source-link { color: #60a5fa; text-decoration: none; font-size: 0.85rem; }
-.source-link:hover { text-decoration: underline; }
-</style>
-""", unsafe_allow_html=True)
+inject_custom_css()
 
 # ── Session state init ────────────────────────────────────────────────────────
 if "session_result" not in st.session_state:
@@ -46,25 +34,21 @@ except ImportError:
         st.session_state.history = []
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
-with st.sidebar:
-    st.markdown('<div style="font-family:IBM Plex Mono,monospace;color:#3b82f6;font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;">🔍 FACTCHECK ENGINE</div>', unsafe_allow_html=True)
-    st.page_link("Home.py", label="🏠 Home & Input")
-    st.page_link("pages/1_Pipeline.py", label="⚡ Live Pipeline")
-    st.page_link("pages/2_Report.py", label="📊 Accuracy Report")
-    st.page_link("pages/3_History.py", label="📁 Session History")
+# Native Streamlit navigation is used instead of custom page links.
 
 # ── Hero ──────────────────────────────────────────────────────────────────────
 st.markdown('<div class="fc-hero">Every Claim.<br><span>Verified.</span></div><div class="fc-subtitle">AI-powered fact-checking engine — claim extraction → web evidence → verdict scoring</div>', unsafe_allow_html=True)
 
 # ── Input Section ─────────────────────────────────────────────────────────────
 st.markdown("### Input Source")
-tab_text, tab_url, tab_pdf = st.tabs(["📝 Paste Text", "🌐 Enter URL", "📄 Upload PDF"])
+
+tab_text, tab_url, tab_pdf = st.tabs(["Paste Text", "Enter URL", "Upload PDF"])
 
 input_text, input_url = "", ""
 input_pdf_bytes = b""
 
 with tab_text:
-    input_text = st.text_area("Paste any text, article, or claim-rich document:", height=220, placeholder="Paste news article here...", key="input_text_area")
+    input_text = st.text_area("Paste any text, article, or claim-rich document:", height=200, placeholder="Paste news article here...", key="input_text_area")
     if input_text: st.caption(f"📊 {len(input_text.split())} words")
 
 with tab_url:
@@ -76,27 +60,26 @@ with tab_pdf:
         input_pdf_bytes = uploaded_file.read()
         st.caption(f"✓ PDF loaded: {uploaded_file.name}")
 
-# ── Advanced Settings ─────────────────────────────────────────────────────────
-with st.expander("⚙️ Advanced Settings", expanded=False):
-    adv_col1, adv_col2 = st.columns(2)
-    with adv_col1:
-        model_choice = st.selectbox("LLM Model", ["meta-llama/llama-3.3-70b-instruct", "gpt-4o"], index=0)
-        depth = st.selectbox("Search Depth", ["quick", "standard", "deep"], index=1, format_func=lambda x: f"{x.capitalize()} Depth")
-    with adv_col2:
-        max_claims = st.slider("Max Claims to Extract", 5, 50, 20)
-        sources_per_claim = st.slider("Sources per Claim", 3, 10, 5)
-        min_source_quality = st.selectbox(
-            "Minimum Source Quality", [1, 2, 3, 4], index=1,
-            format_func=lambda x: {1: "🟢 Tier 1 Only (Gov, Academic)", 2: "🔵 Tier 1+2 (+ Major News)", 3: "🟡 Tier 1-3 (+ Blogs)", 4: "⚪ All Sources"}[x]
-        )
+# Advanced settings moved to popover over input section
 
 # ── Verify Button ─────────────────────────────────────────────────────────────
-st.markdown("---")
+st.markdown("<div style='height: 1rem;'></div>", unsafe_allow_html=True)
 has_input = bool(input_text.strip() or input_url.strip() or input_pdf_bytes)
 
-col_btn, col_hint = st.columns([1, 3])
-with col_btn:
-    verify_clicked = st.button("🔍 VERIFY CLAIMS", disabled=not has_input, use_container_width=True, type="primary")
+btn_adv, btn_spacer, btn_verify = st.columns([2.5, 4, 2])
+
+with btn_adv:
+    with st.popover("Advanced Settings", use_container_width=True):
+        depth = st.selectbox("Search Depth", ["quick", "standard", "deep"], index=1, format_func=lambda x: f"{x.capitalize()} Depth")
+        min_source_quality = st.selectbox(
+            "Minimum Source Quality", [1, 2, 3, 4], index=1,
+            format_func=lambda x: {1: "Tier 1 (Basic)", 2: "Tier 2 (Standard)", 3: "Tier 3 (High)", 4: "Tier 4 (Advanced)"}[x]
+        )
+        max_claims = st.slider("Max Claims to Extract", 5, 50, 20)
+        sources_per_claim = st.slider("Sources per Claim", 3, 10, 5)
+
+with btn_verify:
+    verify_clicked = st.button("Verify Claims", disabled=not has_input, use_container_width=True)
 
 # ── Pipeline Execution ────────────────────────────────────────────────────────
 if verify_clicked and has_input:
@@ -123,7 +106,7 @@ if verify_clicked and has_input:
     ]
     
     st.markdown("---")
-    st.markdown("### 🔄 Live Pipeline")
+    st.markdown("### Live Pipeline")
     
     # Create a placeholder for the stop button right under the header
     stop_placeholder = st.empty()
@@ -138,7 +121,7 @@ if verify_clicked and has_input:
         for sid, label in STAGES:
             if sid in done_stages: icon, cls = "✓", "stage-done"
             elif sid == current_stage: icon, cls = "▶", "stage-active"
-            else: icon, cls = "○", ""
+            else: icon, cls = "-", ""
             rows += f'<div class="stage-row {cls}"><span>{icon}</span><span>{label}</span></div>'
         stage_display.markdown(f'<div class="fc-card">{rows}</div>', unsafe_allow_html=True)
 
@@ -151,7 +134,7 @@ if verify_clicked and has_input:
                 if prev_idx > 0: done_stages.add(STAGES[prev_idx - 1][0])
 
         progress_bar.progress(pct / 100)
-        status_text.markdown(f'<div style="font-family:IBM Plex Mono,monospace;color:#3b82f6;font-size:0.85rem;">{message}</div>', unsafe_allow_html=True)
+        status_text.markdown(f'<div style="font-family:IBM Plex Mono,monospace;color:#E36A6A;font-size:0.85rem;">{message}</div>', unsafe_allow_html=True)
         render_stages(stage, done_stages)
         log_messages.append(f"[{pct:3d}%] {message}")
         st.session_state.pipeline_log = log_messages.copy()
@@ -164,7 +147,7 @@ if verify_clicked and has_input:
     try:
         # Show Stop Button
         with stop_placeholder.container():
-            if st.button("🛑 STOP ANALYSIS", key="stop_btn_active", use_container_width=True):
+            if st.button("STOP ANALYSIS", key="stop_btn_active", use_container_width=True):
                 st.session_state.stop_requested = True
                 st.warning("Attempting to stop pipeline... please wait for current step to finish.")
 
@@ -212,7 +195,7 @@ if verify_clicked and has_input:
         with qr_col4: st.metric("FALSE Claims", result["verdict_counts"].get("FALSE", 0))
         
         # --- NEW: Relevant Sources Section ---
-        st.markdown("### 📚 Relevant Sources Consulted")
+        st.markdown("### Relevant Sources Consulted")
         st.caption("Click links to verify sources manually. Sources are grouped by the claim they support.")
         
         if result.get("claims"):
@@ -229,12 +212,12 @@ if verify_clicked and has_input:
                                 unsafe_allow_html=True
                             )
         else:
-            st.info("No sources were retrieved for this analysis.")
+            st.warning("No sources were retrieved for this analysis.")
             
         st.markdown("---")
-        st.info("📊 View the full interactive report → **Report** page in the sidebar")
+        st.warning("View the full interactive report → Report page in the sidebar")
         
-        if st.button("🔄 NEW CHECK"):
+        if st.button("NEW CHECK"):
             st.session_state.session_result = None
             st.rerun()
 

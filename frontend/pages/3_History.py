@@ -2,33 +2,19 @@ from core.storage import load_history
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+from frontend.utils import inject_custom_css
 import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="History — FactCheck Engine", layout="wide", page_icon="📁")
 
-# ── CSS Styling ────────────────────────────────────────────────────────────────
-st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
-html,[class*="css"]{font-family:'DM Sans',sans-serif!important}
-.stApp{background:#080b14}
-#MainMenu,footer,header{visibility:hidden}
-[data-testid="stSidebar"]{background:#0d1424!important;border-right:1px solid #1e2d4a}
-[data-testid="metric-container"]{background:#0d1424;border:1px solid #1e2d4a;border-radius:8px;padding:.75rem}
-</style>
-""", unsafe_allow_html=True)
+inject_custom_css()
 
 # ── Sidebar Navigation ─────────────────────────────────────────────────────────
-with st.sidebar:
-    st.markdown('<div style="font-family:IBM Plex Mono,monospace;color:#3b82f6;font-size:1rem;font-weight:700;">🔍 FACTCHECK ENGINE</div>', unsafe_allow_html=True)
-    st.page_link("Home.py", label="🏠 Home & Input")
-    st.page_link("pages/1_Pipeline.py", label="⚡ Live Pipeline")
-    st.page_link("pages/2_Report.py", label="📊 Accuracy Report")
-    st.page_link("pages/3_History.py", label="📁 Session History")
+# Native Streamlit navigation is used instead of custom page links.
 
 # ── Page Header ────────────────────────────────────────────────────────────────
-st.markdown('<div style="font-family:IBM Plex Mono,monospace;color:#3b82f6;font-size:0.75rem;letter-spacing:2px;">SESSION ARCHIVE</div>', unsafe_allow_html=True)
+st.markdown('<div style="font-family:IBM Plex Mono,monospace;color:#E36A6A;font-size:0.75rem;letter-spacing:2px;">SESSION ARCHIVE</div>', unsafe_allow_html=True)
 st.markdown("# History")
 
 # ── Retrieve History ───────────────────────────────────────────────────────────
@@ -41,10 +27,9 @@ else:
 
 if not history:
     st.markdown("""
-    <div style="text-align:center;padding:4rem;font-family:IBM Plex Mono,monospace;color:#334155;">
-      <div style="font-size:2rem;">📁</div>
-      <div style="font-size:1rem;margin-top:0.5rem;">No sessions yet.</div>
-      <div style="font-size:0.8rem;color:#1e2d4a;margin-top:0.25rem;">Run a fact-check from the Home page.</div>
+    <div style="text-align:center;padding:4rem;font-family:'Plus Jakarta Sans',sans-serif;color:#334155;">
+      <div style="font-size:1.5rem;margin-top:0.5rem;font-weight:600;">No sessions yet.</div>
+      <div style="font-size:0.9rem;color:#1e2d4a;margin-top:0.25rem;">Run a fact-check from the Home page.</div>
     </div>
     """, unsafe_allow_html=True)
     st.stop()
@@ -103,7 +88,7 @@ selected_id = st.selectbox("Select session to load:", session_ids[::-1])
 if selected_id:
     selected = next((s for s in history if s.get("session_id") == selected_id), None)
     if selected:
-        if st.button("📊 Load this session into Report view"):
+        if st.button("Load this session into Report view"):
             st.session_state.session_result = selected
             st.switch_page("pages/2_Report.py")
 

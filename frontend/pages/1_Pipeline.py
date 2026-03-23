@@ -1,22 +1,14 @@
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from frontend.utils import inject_custom_css
 import streamlit as st
 
 st.set_page_config(page_title="Live Pipeline", layout="wide", page_icon="⚡")
 
-st.markdown("""
-<style>
-.stApp { background: #080b14; }
-.terminal-box { background: #020408; border: 1px solid #1e2d4a; border-radius: 8px; padding: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #22c55e; max-height: 450px; overflow-y: auto; line-height: 1.7; }
-</style>
-""", unsafe_allow_html=True)
+inject_custom_css()
 
-with st.sidebar:
-    st.page_link("Home.py", label="🏠 Home & Input")
-    st.page_link("pages/1_Pipeline.py", label="⚡ Live Pipeline")
-    st.page_link("pages/2_Report.py", label="📊 Accuracy Report")
-    st.page_link("pages/3_History.py", label="📁 Session History")
+# Native Streamlit navigation is used instead of custom page links.
 
 st.markdown("# Live Pipeline Status")
 result = st.session_state.get("session_result", None)
@@ -33,12 +25,14 @@ cols = st.columns(len(STAGES))
 for i, (sid, name) in enumerate(STAGES):
     with cols[i]:
         is_done = result is not None
-        icon = "✓" if is_done else "○"
-        color = "#10b981" if is_done else "#475569"
+        icon = "✓" if is_done else "-"
+        color = "#E36A6A" if is_done else "#9CA3AF"
+        bg = "rgba(227, 106, 106, 0.05)" if is_done else "#FFFFFF"
+        border = f"1px solid {color}" if is_done else "1px solid rgba(227, 106, 106, 0.15)"
         st.markdown(f"""
-        <div style="background:#0d1424;border:1px solid {color};border-radius:8px;padding:0.75rem;text-align:center;">
-          <div style="color:{color};font-size:1.5rem;">{icon}</div>
-          <div style="font-size:0.72rem;font-weight:600;color:{color};margin-top:4px;">{name}</div>
+        <div style="background:{bg};border:{border};border-radius:8px;padding:0.75rem;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,0.02); height: 110px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <div style="color:{color};font-size:1.5rem;line-height:1;">{icon}</div>
+          <div style="font-size:0.75rem;font-weight:600;color:{color};margin-top:8px;line-height:1.2;">{name}</div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -47,4 +41,4 @@ st.markdown("### Execution Log")
 if log:
     st.markdown('<div class="terminal-box">' + "<br>".join(f"[{i}] {m}" for i, m in enumerate(log)) + "</div>", unsafe_allow_html=True)
 else:
-    st.info("Waiting for pipeline to start on Home page...")
+    st.warning("Waiting for pipeline to start on Home page...")

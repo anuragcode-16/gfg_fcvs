@@ -1,0 +1,241 @@
+/* style.css - Centralized UI styling for FactCheck Engine */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* --- Typography & Base Theme --- */
+html, body, [class*="css"], .stMarkdown p { 
+    font-family: 'Plus Jakarta Sans', sans-serif !important; 
+}
+.stApp { 
+    background-color: #FFFBF1; 
+    color: #333333; 
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #1a1a1a;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em;
+}
+
+/* --- Layout Adjustments --- */
+.block-container {
+    padding-top: 1.5rem !important; /* Push main content up */
+    padding-bottom: 2rem !important;
+}
+
+/* --- Hiding default cruft --- */
+header { display: none !important; }
+#MainMenu { display: none !important; }
+footer { display: none !important; }
+
+/* --- Sidebar styling --- */
+[data-testid="stSidebar"] {
+    background-color: #FFF2D0 !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Inject Title Above Native Nav */
+[data-testid="stSidebarNav"]::before {
+    content: "LumenAI";
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #E36A6A;
+    padding: 2rem 1.5rem 1rem 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+/* Style Native Links */
+[data-testid="stSidebarNav"] {
+    padding-top: 0 !important;
+}
+[data-testid="stSidebarNav"] a {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    color: #333333 !important;
+    border-radius: 8px !important;
+    margin: 0.2rem 1rem !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.2s ease;
+}
+[data-testid="stSidebarNav"] a:hover {
+    background-color: rgba(227, 106, 106, 0.1) !important;
+    color: #E36A6A !important;
+}
+[data-testid="stSidebarNav"] a[aria-current="page"] {
+    background-color: rgba(227, 106, 106, 0.15) !important;
+    color: #E36A6A !important;
+}
+[data-testid="stSidebarNavSeparator"] {
+    display: none !important; /* hide the subtle line below nav */
+}
+
+/* --- Hero Section --- */
+.fc-hero { 
+    font-family: 'Plus Jakarta Sans', sans-serif !important; 
+    font-size: 3.8rem; 
+    font-weight: 700; 
+    color: #1a1a1a; 
+    line-height: 1.1; 
+    margin-bottom: 0.5rem; 
+    letter-spacing: -1px;
+}
+.fc-hero span { 
+    background: linear-gradient(135deg, #E36A6A, #FFB2B2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.fc-subtitle { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-size: 1.15rem; 
+    color: #666666; 
+    margin-bottom: 2.5rem; 
+    font-weight: 400;
+}
+
+/* --- Terminal Box --- */
+.terminal-box { 
+    background-color: #FFF2D0; 
+    border: 1px solid rgba(227, 106, 106, 0.2); 
+    border-radius: 12px; 
+    padding: 1.25rem; 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 0.8rem; 
+    color: #E36A6A; 
+    max-height: 350px; 
+    overflow-y: auto; 
+    line-height: 1.8; 
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* --- Inputs & Buttons --- */
+.stTextArea textarea, .stTextInput input {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    border-radius: 8px !important;
+    color: #333333 !important;
+    font-size: 0.95rem;
+}
+.stTextArea textarea:focus, .stTextInput input:focus {
+    border-color: #E36A6A !important;
+    box-shadow: 0 0 0 1px #E36A6A !important;
+}
+/* Override primary buttons */
+button[kind="primary"] {
+    background: linear-gradient(135deg, #E36A6A, #FFB2B2) !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    padding: 0.5rem 1rem !important;
+    box-shadow: 0 4px 10px rgba(227, 106, 106, 0.2);
+    white-space: nowrap !important;
+    transition: all 0.2s ease !important;
+}
+button[kind="primary"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(227, 106, 106, 0.3);
+}
+
+/* Secondary Button (Like the Advanced popover) */
+button[kind="secondary"] {
+    background-color: transparent !important;
+    border: 2px solid #E36A6A !important;
+    color: #E36A6A !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    padding: 0.5rem 1rem !important;
+    white-space: nowrap !important;
+    transition: all 0.2s ease !important;
+}
+button[kind="secondary"]:hover {
+    background-color: rgba(227, 106, 106, 0.05) !important;
+    transform: translateY(-2px);
+}
+
+/* --- Cards & Metrics --- */
+[data-testid="metric-container"] {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease;
+}
+[data-testid="metric-container"]:hover {
+    transform: translateY(-2px);
+    background-color: #FFF2D0;
+    border-color: rgba(227, 106, 106, 0.2);
+}
+.fc-card {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+[data-testid="stMetricValue"] {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 700 !important;
+    color: #E36A6A !important;
+}
+
+/* --- Terminal / Log Box --- */
+.terminal-box {
+    background-color: #FFFFFF;
+    color: #333333;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 300px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* --- Stage Rows (Pipeline UI) --- */
+.stage-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666666;
+    transition: all 0.2s;
+    margin-bottom: 4px;
+}
+.stage-active {
+    background-color: rgba(227, 106, 106, 0.1);
+    color: #E36A6A;
+    border-left: 3px solid #E36A6A;
+}
+.stage-done {
+    color: #E36A6A;
+}
+
+/* --- Links --- */
+.source-link { 
+    color: #E36A6A; 
+    text-decoration: none; 
+    font-size: 0.85rem; 
+    font-weight: 500;
+}
+.source-link:hover { 
+    text-decoration: underline; 
+    color: #FFB2B2;
+}
+
+/* --- Expanders --- */
+.streamlit-expanderHeader {
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    color: #333333;
+}
+
