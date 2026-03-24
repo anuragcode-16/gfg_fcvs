@@ -12,6 +12,7 @@ from .scraper import fetch_url_content
 from .search_service import search_for_claim
 from .ai_detector import detect_ai_text
 from .domain_trust import compute_weighted_confidence
+from .rag import prepare_document_chunks
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +93,7 @@ def run_pipeline(
         for url in urls:
             res = fetch_url_content(url)
             if res["success"] and (res["domain_tier"] <= min_source_quality or min_source_quality == 4):
+                res["_retrieval_chunks"] = prepare_document_chunks(res)
                 evidence_items.append(res)
                 
         claim["evidence"] = evidence_items
@@ -111,16 +113,20 @@ def run_pipeline(
         emit("stage_05", f"Verdicting claim {i+1}/{len(claims_with_evidence)}", 62 + int((i/max(len(claims_with_evidence),1))*20))
         
         verdict_data = verify_claim(claim["text"], claim["evidence"])
+        public_evidence = [
+            {k: v for k, v in evidence.items() if k not in {"_retrieval_chunks", "retrieval_chunks"}}
+            for evidence in claim["evidence"]
+        ]
         
         if claim["evidence"]:
             best_tier = min(e.get("domain_tier", 4) for e in claim["evidence"])
             verdict_data["confidence_score"] = compute_weighted_confidence(verdict_data.get("confidence_score", 50), best_tier)
         
-        verified_claims.append({**claim, **verdict_data})
+        verified_claims.append({**claim, "evidence": public_evidence, **verdict_data})
 
     # STAGE 06: Report Assembly
     emit("stage_06", "Assembling report...", 84)
-    verdict_counts = {"TRUE": 0, "FALSE": 0, "PARTIALLY TRUE": 0, "UNVERIFIABLE": 0}
+    verdict_counts = {"TRUE": 0, "FALSE": 0, "PARTIALLY TRUE": 0, "UNVERIFIABLE": 0, "OUTDATED": 0}
     for c in verified_claims: verdict_counts[c.get("verdict", "UNVERIFIABLE")] += 1
     
     # Improved Accuracy Calculation: TRUE=100%, PARTIAL=50%
