@@ -126,9 +126,34 @@ export default function ReportPage() {
             }}>
               SHARED REPORT
             </div>
-            <h1 className="heading-lg" style={{ marginBottom: 4 }}>
-              Fact-Check <span className="text-gradient">Report</span>
-            </h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <h1 className="heading-lg" style={{ marginBottom: 0 }}>
+                Fact-Check <span className="text-gradient">Report</span>
+              </h1>
+              {result.input_url && (
+                <a
+                  href={result.input_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                  style={{
+                    padding: '4px 12px',
+                    fontSize: '0.75rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    textDecoration: 'none',
+                    background: 'white',
+                    height: 'fit-content'
+                  }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                  </svg>
+                  Original Source
+                </a>
+              )}
+            </div>
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -168,7 +193,9 @@ export default function ReportPage() {
             </div>
           </div>
 
-          <SharePanel sessionId={sessionId} result={result} />
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <SharePanel sessionId={sessionId} result={result} />
+          </div>
         </div>
 
         {/* Results Dashboard */}
