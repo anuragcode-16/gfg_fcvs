@@ -6,6 +6,7 @@ from typing import Any
 from tenacity import retry, stop_after_attempt, wait_exponential
 from dotenv import load_dotenv
 from .config import settings
+from .rag import retrieve_relevant_passages
 
 load_dotenv()
 
@@ -245,12 +246,19 @@ OUTPUT (strict JSON only):
 }"""
 
 def verify_claim(claim_text: str, evidence_passages: list) -> dict:
+    retrieved_passages = retrieve_relevant_passages(claim_text, evidence_passages, top_k=6, per_document_limit=2)
     evidence_block = ""
-    for i, ev in enumerate(evidence_passages[:5], 1):
-        snippet = ev.get("content", "")[:600]
-        url = ev.get("url", "unknown")
-        domain_tier = ev.get("domain_tier", "unknown")
-        evidence_block += f"\n[Evidence {i}] Source: {url} (Trust tier: {domain_tier})\n{snippet}\n"
+    for i, passage in enumerate(retrieved_passages, 1):
+        snippet = passage.get("content", "")[:700]
+        url = passage.get("url", "unknown")
+        domain_tier = passage.get("domain_tier", "unknown")
+        score = passage.get("score", 0)
+        matched_terms = ", ".join(passage.get("matched_terms", [])[:8]) or "n/a"
+        evidence_block += (
+            f"\n[Evidence {i}] Source: {url} (Trust tier: {domain_tier}, Retrieval score: {score})\n"
+            f"Matched terms: {matched_terms}\n"
+            f"{snippet}\n"
+        )
     
     if not evidence_block.strip():
         evidence_block = "[No evidence retrieved — mark as UNVERIFIABLE]"
@@ -265,14 +273,24 @@ Follow the 7-step Chain-of-Thought verification process. Output JSON verdict onl
     
     raw = _call_openrouter_sync(VERDICT_SYSTEM, user_prompt, temperature=0.0)
     try:
-        return _parse_json(raw)
+        result = _parse_json(raw)
     except Exception:
-        return {
-            "verdict": "UNVERIFIABLE", "confidence_score": 0,
-            "reasoning": "Verdict parsing failed.", "self_reflection": "N/A",
-            "supporting_citations": [], "contradicting_citations": [],
-            "contradictions_detected": False, "contradiction_explanation": "", "temporal_note": "",
-        }
+        result = {}
+
+    if not isinstance(result, dict):
+        result = {}
+
+    result.setdefault("verdict", "UNVERIFIABLE")
+    result.setdefault("confidence_score", 0)
+    result.setdefault("reasoning", "Verdict parsing failed.")
+    result.setdefault("self_reflection", "N/A")
+    result.setdefault("supporting_citations", [])
+    result.setdefault("contradicting_citations", [])
+    result.setdefault("contradictions_detected", False)
+    result.setdefault("contradiction_explanation", "")
+    result.setdefault("temporal_note", "")
+    result["retrieved_passages"] = retrieved_passages
+    return result
 
 # --- STAGE 4: Hallucination Audit ---
 AUDIT_SYSTEM = """You are a meta-fact-checker auditing AI-generated verdicts.

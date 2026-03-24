@@ -6969,5 +6969,303 @@
       "overall_pipeline_quality": "HIGH",
       "auditor_notes": "The verdict appears to be well-supported by the provided evidence."
     }
+  },
+  {},
+  {
+    "session_id": "266cf15c",
+    "started_at": "2026-03-24T14:36:12.876359",
+    "input_type": "text",
+    "input_url": "",
+    "text_sample": "gorgoe hotz new project name is tinygrad\r\n",
+    "overall_accuracy_score": 0.0,
+    "verdict_counts": {
+      "TRUE": 0,
+      "FALSE": 0,
+      "PARTIALLY TRUE": 0,
+      "UNVERIFIABLE": 1
+    },
+    "total_claims": 1,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "Gorgio Hotz's new project name is TinyGrad",
+        "type": "CLAIM_ABOUT_PERSON",
+        "temporally_sensitive": true,
+        "context_snippet": "gorgoe hotz new project name is tinygrad",
+        "searchability_score": 8,
+        "queries": [
+          "Gorgio Hotz TinyGrad project",
+          "What is Gorgio Hotz's latest project according to his official website 2024",
+          "Is Gorgio Hotz's TinyGrad project a successor to his previous work on machine learning frameworks?"
+        ],
+        "evidence": [],
+        "verdict": "UNVERIFIABLE",
+        "confidence_score": 0,
+        "reasoning": "No evidence was retrieved to support or refute the claim.",
+        "self_reflection": "I did not rely on training data as no information was provided.",
+        "supporting_citations": [],
+        "contradicting_citations": [],
+        "contradictions_detected": false,
+        "contradiction_explanation": "",
+        "temporal_note": ""
+      }
+    ],
+    "narrative": "The document's overall credibility is severely compromised, with an overall accuracy score of 0.0/100, as none of the claims made could be verified. The most significant claim, regarding Gorgio Hotz's new project being named TinyGrad, is unverifiable due to a complete lack of evidence to support or refute it. This unverifiable claim is the sole component of the document, resulting in no true or false claims being identified. In conclusion, the document lacks any credible information, rendering it entirely unreliable due to the absence of verifiable evidence to substantiate its claims.",
+    "ai_detection": {
+      "ensemble_probability": 50.0,
+      "label": "Likely Human-Written",
+      "source": "Local Model (Fallback)",
+      "statistical": {
+        "statistical_ai_probability": 50.0,
+        "features": {
+          "note": "Text too short"
+        }
+      },
+      "llm_analysis": {
+        "llm_probability": 50
+      }
+    },
+    "audit": {
+      "audit_passed": true,
+      "flagged_claims": [],
+      "overall_pipeline_quality": "HIGH",
+      "auditor_notes": "The verdict appears to be correct and is supported by the provided evidence, which indicates a lack of information to verify the claim."
+    }
+  },
+  {
+    "session_id": "c1d16b69",
+    "started_at": "2026-03-24T14:38:11.507791",
+    "input_type": "text",
+    "input_url": "",
+    "text_sample": "empire state building in located in oparis\r\n",
+    "overall_accuracy_score": 0.0,
+    "verdict_counts": {
+      "TRUE": 0,
+      "FALSE": 1,
+      "PARTIALLY TRUE": 0,
+      "UNVERIFIABLE": 0
+    },
+    "total_claims": 1,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "Empire State Building is located in Paris",
+        "type": "GEOGRAPHICAL",
+        "temporally_sensitive": false,
+        "context_snippet": "empire state building in located in oparis",
+        "searchability_score": 8,
+        "queries": [
+          "Empire State Building location",
+          "What is the address of the Empire State Building according to the official New York City government website 2024",
+          "Is the Empire State Building in Paris or New York City according to UNESCO World Heritage Centre"
+        ],
+        "evidence": [
+          {
+            "url": "https://portal.311.nyc.gov/article/?kanumber=KA-01441",
+            "content": "You\u2019re offline. This is a read only version of the page. Skip Main Navigation Menu The Official Website of the City of New York Search Search Empire State Building Sign In | s Browse Topics The Empire State Building is located at 350 Fifth Avenue between 33rd and 34th Streets in midtown Manhattan. You can get more information about the Empire State Building, including tourist activities, hours of operation, and the colored lighting schedule. Online Learn more about the Empire State Building. By Phone Call 311 or 212-NEW-YORK (212-639-9675) for help. Clear lookup field Launch lookup modal Lookup records \u00d7 Close We're sorry, an error has occurred. There are no records to display. You don't have permissions to view these records. Error completing request. Loading... Error \u00d7 Close We're sorry, an error has occurred. Close Select Cancel Remove value Clear lookup field Launch lookup modal Lookup records \u00d7 Close We're sorry, an error has occurred. There are no records to display. You don't have permissions to view these records. Error completing request. Loading... Error \u00d7 Close We're sorry, an error has occurred. Close Select Cancel Remove value Clear lookup field Launch lookup modal Lookup records \u00d7 Close We're sorry, an error has occurred. There are no records to display. You don't have permissions to view these records. Error completing request. Loading... Error \u00d7 Close We're sorry, an error has occurred. Close Select Cancel Remove value * \u00d7 Disclaimer: The City intends to use the data collected from this survey to generally add and improve City services. Survey participation is voluntary. Participants in this survey will not receive further communication from the City with regards to this survey. Was this information helpful? Yes No We will use your feedback to improve NYC311. Please do not include personal information or expect a response. For a complete list of problems you can report using NYC311, please visit our Report Problems page. How can we improve this page? * Was this information helpful? Was this information helpful? No Was this information helpful? Yes Knowledge Article Clear lookup field Launch lookup modal Lookup records \u00d7 Close We're sorry, an error has occurred. There are no records to display. You don't have permissions to view these records. Error completing request. Loading... Error \u00d7 Close We're sorry, an error has occurred. Close Select Cancel Remove value IP Address * Follow NYC311 Download the NYC311 Mobile App About NYC311 Send Feedback NYC311 Privacy Policy \u00d7 To change the text size on NYC.gov you can use your web browser's settings. Most browsers include functionality to let you increase or decrease the text on a web page. For example, to increase text size using: Chrome In the menu to the right of the address bar, select and set Zoom level. Menu > Zoom > + Firefox In the View menu, select Zoom. View > Zoom > Zoom In Internet Explorer In the View menu, select Text Size. View > Text Size > Largest Safari In the View menu, select Zoom In. View > Zoom In Macintosh Shortcut: Command+ No Web Browser Endorsement Common browsers are included in this page; mention of a specific browser does not imply endorsement or recommendation.",
+            "method": "bs4",
+            "domain": "portal.311.nyc.gov",
+            "domain_tier": 1,
+            "success": true
+          },
+          {
+            "url": "https://en.wikipedia.org/wiki/Empire_State_Building",
+            "content": "Jump to content Main menu Search Donate Create account ggle History subsection Height records Notable tenants Incidents Toggle Incidents subsection Impact Toggle Impact subsection See also Notes References Toggle References subsection Further reading External links Empire State Building 116 languages Article Talk Read View source View history Tools Appearance hide Birthday mode (Baby Globe) Disabled Enabled Learn more about Birthday mode Text Small Standard Large Width Standard Wide Color (beta) Automatic Light Dark Coordinates: 40\u00b044\u203254\u2033N 73\u00b059\u203208\u2033W From Wikipedia, the free encyclopedia Not to be confused with Empire Building (Manhattan). Empire State Building Empire State Building illuminated in 2021 Wikimedia | \u00a9 OpenStreetMap Interactive map of the Empire State Building area Record height Tallest in the world from 1931 to 1970[I] Preceded by Chrysler Building Surpassed by World Trade Center General information Type Office building; observation decks Architectural style Art Deco Location 350 Fifth Avenue[a] Manhattan, New York, 10118[b] U.S. Coordinates 40\u00b044\u203254\u2033N 73\u00b059\u203208\u2033W Construction started March 17, 1930; 96 years ago[2] Topped-out September 19, 1930; 95 years ago Completed April 11, 1931; 94 years ago[3] Opened May 1, 1931; 94 years ago[4] Cost $40,948,900[8] (equivalent to $678 million in 2024)[9] Owner Empire State Realty Trust Height Tip 1,454 ft (443.2 m)[5] Antenna spire 204 ft (62.2 m)[5] Roof 1,250 ft (381.0 m)[5] Top floor 1,224 ft (373.1 m)[5] Observatory 80th, 86th, and 102nd (top) floors[5] Dimensions Other dimensions 424 ft (129.2 m) east\u2013west; 187 ft (57.0 m) north\u2013south[6] Technical details Floor count 102[5][6][7][c] Floor area 2,248,355 sq ft (208,879 m2)[5] Lifts/elevators 73[5] Design and construction Architect Shreve, Lamb and Harmon Developer Empire State Inc., including John J. Raskob and Al Smith Structural engineer Homer Gage Balcom Main contractor Starrett Brothers and Eken Website esbnyc.com U.S. National Historic Landmark Designated June 24, 1986 Reference no. 82001192 U.S. National Register of Historic Places Designated November 17, 1982 Reference no. 82001192 New York State Register of Historic Places Designated September 27, 1982[12] Reference no. 06101.001691 New York City Landmark Designated May 19, 1981[13] Reference no. 2000[13] Designated entity Facade New York City Landmark Designated May 19, 1981[14] Reference no. 2001[14] Designated entity Interior: Lobby References I. ^ \"Empire State Building\". Emporis. Archived from the original on April 5, 2015. [5][10][11] The Empire State Building is a 102-story,[c] supertall skyscraper in the Midtown South neighborhood of Manhattan, New York City, United States. The building was designed in the Art Deco style by Shreve, Lamb & Harmon and constructed between 1930 and 1931. Its name is derived from \"Empire State\", the nickname of New York state. The building has a roof height of 1,250 feet (380 m) and stands a total of 1,454 feet (443.2 m) tall including its antenna. The Empire State Building was the world's tallest building until the North Tower of the World Trade Center was topped out in 1970; following the September 11 attacks in 2001, the Empire State Building was once more New York City's tallest building until it was surpassed in 2012 by One World Trade Center. As of 2025, the building is the eighth-tallest building in New York City, the tenth-tallest completed skyscraper in the United States, and the 59th-tallest completed skyscraper in the world. The site of the Empire State Building, on the west side of Fifth Avenue between West 33rd and 34th Streets, was developed in 1893 as the Waldorf\u2013Astoria Hotel. In 1929, Empire State Inc. acquired the site and devised plans for a skyscraper there. The design for the Empire State Building was changed fifteen times until it was ensured to be the world's tallest building. Construction started on March 17, 1930, and the building opened thirteen and a half months afterward on May 1, 1931. Despite favorable publicity related to the building's construction, because of the Great Depression and World War II, its owners did not make a profit until the early 1950s. The building's Art Deco architecture, height, and observation decks have made it a popular attraction. Around four million tourists from around the world annually visit the building's 86th- and 102nd-floor observatories; an additional indoor observatory on the 80th floor opened in 2019. The Empire State Building is an international cultural icon: it has been featured in more than 250 television series and films since the film King Kong was released in 1933. The building's size has been used as a standard of reference to describe the height and length of other structures. A symbol of New York City, the building has been named as one of the Seven Wonders of the Modern World by the American Society of Civil Engineers. It was ranked first on the American Institute of Architects' List of America's Favorite Architecture in 2007. Additionally, the Empire State Building and its ground-floor interior were designated city landmarks by the New York City Landmarks Preservation Commission in 1980, and were added to the National Register of Historic Places as a National Historic Landmark in 1986. Site The Empire State Building is located on the west side of Fifth Avenue, between 33rd Street to the south and 34th Street to the north, in the Midtown South neighborhood of Manhattan, New York City, United States.[17] Tenants enter the building through the Art Deco lobby located at 350 Fifth Avenue. Visitors to the observatories use an entrance at 20 West 34th Street; prior to August 2018, visitors entered through the Fifth Avenue lobby.[1] Although physically located in South Midtown,[18] a mixed residential and commercial area,[19] the building is so large that it was assigned its own ZIP Code, 10118;[20][21] as of 2012, it is one of 43 buildings in New York City that have their own ZIP codes.[22][b] The areas surrounding",
+            "method": "playwright",
+            "domain": "en.wikipedia.org",
+            "domain_tier": 1,
+            "success": true
+          },
+          {
+            "url": "https://empirestateplaza.ny.gov/directions",
+            "content": "Sorry, you have been blocked You are unable to access ny.gov Why have I been blocked? This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data. What can I do to resolve this? You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page. Cloudflare Ray ID: 9e1486e8fe0af361 \u2022 Your IP: Click to reveal \u2022 Performance & security by Cloudflare",
+            "method": "playwright",
+            "domain": "empirestateplaza.ny.gov",
+            "domain_tier": 1,
+            "success": true
+          },
+          {
+            "url": "https://www.cbsnews.com/newyork/news/empire-state-building-top-attraction-in-the-world-tripadvisor/",
+            "content": "NEW YORK - New York City's Empire State Building is a global icon. It has been voted the top attraction worldwide, according to Tripadvisor's 2024 Travelers' Choice Awards . The awards, according to the wesbite, reflect \"travelers favorite destinations, hotels, restaurants, things to do, and beyond, based on the reviews and opinions collated from travelers and diners around the world over a 12-month period.\" And the Empire State Building holds the top spot in the site's \" Best of the Best - Top Attractions \" category. It has a 4.5 rating based on more than 95,000 reviews. Coming in second on the list is another architectural icon, the Eiffel Tower in Paris. Here's the complete list of the top 10 attractions: Empire State Building, NYC Eiffel Tower, Paris Anne Frank House, Amsterdam Basilica de la Sagrada Familia, Barcelona Cayman Crystal Caves, Cayman Islands Colosseum, Rome Louvre Museum, Paris Gardens by the Bay, Singapore Duomo di Milano, Milan Sheikh Zayed Grand Mosque Center, Abu Dhabi The building will light up green Tuesday night in celebration of its win. About the Empire State Building Construction of the Empire State Building began on March 17, 1930. It was completed in just one year and forty five days, and opened for the first time on May 1, 1931. At 102 stories, it was the tallest building in the world. It has been featured in countless movies. Just two years after it opened, in 1933, it was the backdrop for the classic scene in \"King Kong.\" The radio antenna was added to the top of the building in 1950. By 1976, the building had received more than 50 million visitors. It was declared a New York City landmark in 1981, and a National Historic Landmark in 1986. In: Empire State Building Featured Local Savings",
+            "method": "bs4",
+            "domain": "cbsnews.com",
+            "domain_tier": 2,
+            "success": true
+          }
+        ],
+        "verdict": "FALSE",
+        "confidence_score": 100,
+        "reasoning": "Evidence 1 from https://portal.311.nyc.gov/article/?kanumber=KA-01441 states the Empire State Building is located at 350 Fifth Avenue between 33rd and 34th Streets in midtown Manhattan, and Evidence 2 from https://en.wikipedia.org/wiki/Empire_State_Building provides coordinates that also indicate a New York location, contradicting the claim that it is in Paris.",
+        "self_reflection": "I did not rely on training data to make this verdict.",
+        "supporting_citations": [
+          "https://portal.311.nyc.gov/article/?kanumber=KA-01441",
+          "https://en.wikipedia.org/wiki/Empire_State_Building"
+        ],
+        "contradicting_citations": [],
+        "contradictions_detected": false,
+        "contradiction_explanation": "",
+        "temporal_note": "Evidence from 2024 and general information sources"
+      }
+    ],
+    "narrative": "The document's overall credibility is severely compromised, with an accuracy score of 0.0/100, as it contains a significant false claim that the Empire State Building is located in Paris. This assertion is directly contradicted by multiple reliable sources, including the official New York City government website and Wikipedia, which confirm the building's location as 350 Fifth Avenue between 33rd and 34th Streets in midtown Manhattan, New York City. There are no true claims found in the document, and the false claim about the Empire State Building's location is the most significant inaccuracy. The evidence gathered from various sources, including government and educational websites, unequivocally supports the conclusion that the document's claim is entirely false, leading to a clear bottom-line assessment that the document lacks credibility.",
+    "ai_detection": {
+      "ensemble_probability": 50.0,
+      "label": "Likely Human-Written",
+      "source": "Local Model (Fallback)",
+      "statistical": {
+        "statistical_ai_probability": 50.0,
+        "features": {
+          "note": "Text too short"
+        }
+      },
+      "llm_analysis": {
+        "llm_probability": 50
+      }
+    },
+    "audit": {
+      "audit_passed": true,
+      "flagged_claims": [],
+      "overall_pipeline_quality": "HIGH",
+      "auditor_notes": "The verdict is well-supported by the provided evidence, which clearly indicates the Empire State Building's location in New York City, not Paris."
+    }
+  },
+  {
+    "session_id": "76452b86",
+    "started_at": "2026-03-24T14:58:45.204452",
+    "input_type": "text",
+    "input_url": "",
+    "text_sample": "does gorgoe htoz new project is tinygrad\r\n",
+    "overall_accuracy_score": 0.0,
+    "verdict_counts": {
+      "TRUE": 0,
+      "FALSE": 0,
+      "PARTIALLY TRUE": 0,
+      "UNVERIFIABLE": 1,
+      "OUTDATED": 0
+    },
+    "total_claims": 1,
+    "claims": [
+      {
+        "id": "c1",
+        "text": "Gorgoe Htoz has a new project called tinygrad",
+        "type": "CLAIM_ABOUT_PERSON",
+        "temporally_sensitive": true,
+        "context_snippet": "does gorgoe htoz new project is",
+        "searchability_score": 6,
+        "queries": [
+          "Gorgio Htoz tinygrad project",
+          "What is Gorgio Htoz's role in the tinygrad project official website",
+          "Is Gorgio Htoz the founder of tinygrad or is it someone else 2024"
+        ],
+        "evidence": [],
+        "verdict": "UNVERIFIABLE",
+        "confidence_score": 0,
+        "reasoning": "No evidence was retrieved to support or refute the claim.",
+        "self_reflection": "I did not rely on training data as no information was provided.",
+        "supporting_citations": [],
+        "contradicting_citations": [],
+        "contradictions_detected": false,
+        "contradiction_explanation": "",
+        "temporal_note": "",
+        "retrieved_passages": []
+      }
+    ],
+    "narrative": "The document's overall credibility is severely compromised, with an overall accuracy score of 0.0/100, as none of the claims made could be verified. The most significant claim, regarding Gorgoe Htoz's involvement in a project called tinygrad, is unverifiable due to a complete lack of evidence to support or refute it. This unverifiable claim is the sole notable finding, with no true or false claims identified, and no contradictions detected. In summary, the document's content is entirely unverifiable, rendering it unreliable and lacking in credible information.",
+    "ai_detection": {
+      "ensemble_probability": 50.0,
+      "label": "Likely Human-Written",
+      "source": "Local Model (Fallback)",
+      "statistical": {
+        "statistical_ai_probability": 50.0,
+        "features": {
+          "note": "Text too short"
+        }
+      },
+      "llm_analysis": {
+        "llm_probability": 50
+      }
+    },
+    "audit": {
+      "audit_passed": true,
+      "flagged_claims": [],
+      "overall_pipeline_quality": "HIGH",
+      "auditor_notes": "The verdict appears to be correct and is based on the lack of evidence, with no indication of using knowledge beyond the provided evidence."
+    }
+  },
+  {
+    "session_id": "04f927fe",
+    "started_at": "2026-03-24T15:07:26.619517",
+    "input_type": "text",
+    "input_url": "",
+    "text_sample": "gorgoe hotz new project is called tinygrad and is he has been started commaAi as a founder",
+    "overall_accuracy_score": 0.0,
+    "verdict_counts": {
+      "TRUE": 0,
+      "FALSE": 0,
+      "PARTIALLY TRUE": 0,
+      "UNVERIFIABLE": 0,
+      "OUTDATED": 0
+    },
+    "total_claims": 0,
+    "claims": [],
+    "narrative": "The document in question lacks credibility, with an overall accuracy score of 0.0 out of 100, indicating a complete absence of verifiable information. There are no significant",
+    "ai_detection": {
+      "ensemble_probability": 50.0,
+      "label": "Likely Human-Written",
+      "source": "Local Model (Fallback)",
+      "statistical": {
+        "statistical_ai_probability": 50.0,
+        "features": {
+          "note": "Text too short"
+        }
+      },
+      "llm_analysis": {
+        "llm_probability": 50
+      }
+    },
+    "audit": {
+      "audit_passed": true,
+      "flagged_claims": [],
+      "overall_pipeline_quality": "HIGH",
+      "auditor_notes": "No verdicts were provided for auditing."
+    }
+  },
+  {
+    "session_id": "48e2b6bf",
+    "started_at": "2026-03-24T15:09:41.292414",
+    "input_type": "text",
+    "input_url": "",
+    "text_sample": "does gorgoe hotz is th efounder of comma ai and currently working on porject called tinygrad\r\n",
+    "overall_accuracy_score": 0.0,
+    "verdict_counts": {
+      "TRUE": 0,
+      "FALSE": 0,
+      "PARTIALLY TRUE": 0,
+      "UNVERIFIABLE": 0,
+      "OUTDATED": 0
+    },
+    "total_claims": 0,
+    "claims": [],
+    "narrative": "The document in question lacks credibility, with an overall accuracy score of 0.0 out of 100. Notably, our fact-checking process did not identify any true, false, partially true, or outdated claims, as the document appears to be devoid of verifiable information. This absence of substantiable claims renders the entire document unverifiable, making it impossible to discern any meaningful assertions or contradictions. In conclusion, the document's complete lack of credible content leads to a bottom-line assessment that it holds no journalistic value or merit.",
+    "ai_detection": {
+      "ensemble_probability": 50.0,
+      "label": "Likely Human-Written",
+      "source": "Local Model (Fallback)",
+      "statistical": {
+        "statistical_ai_probability": 50.0,
+        "features": {
+          "note": "Text too short"
+        }
+      },
+      "llm_analysis": {
+        "llm_probability": 50
+      }
+    },
+    "audit": {
+      "audit_passed": true,
+      "flagged_claims": [],
+      "overall_pipeline_quality": "HIGH",
+      "auditor_notes": "No verdicts were provided for auditing."
+    }
   }
 ]
