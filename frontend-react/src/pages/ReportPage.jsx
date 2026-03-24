@@ -191,8 +191,7 @@ export default function ReportPage() {
               color: 'var(--text-primary)',
               lineHeight: 1.8,
               fontStyle: 'italic',
-              borderLeft: '3px solid var(--coral)',
-              paddingLeft: 16,
+              paddingLeft: 0,
             }}>
               {result.narrative}
             </div>
@@ -206,19 +205,12 @@ export default function ReportPage() {
               Claim-by-Claim Analysis
             </h2>
 
-            <div className="glass-card-static" style={{
-              padding: '16px 20px',
-              marginBottom: 16,
-              display: 'flex',
-              gap: 16,
-              flexWrap: 'wrap',
-              alignItems: 'center',
-            }}>
-              <div style={{ flex: 1, minWidth: 200 }}>
-                <label style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 4, display: 'block' }}>
-                  Filter by Verdict
-                </label>
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <div className="toolbar-glass" style={{ marginBottom: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16, flex: 1, flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', letterSpacing: '1px' }}>
+                  FILTER BY VERDICT
+                </span>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   {['TRUE', 'FALSE', 'PARTIALLY TRUE', 'UNVERIFIABLE'].map(v => (
                     <button
                       key={v}
@@ -228,14 +220,16 @@ export default function ReportPage() {
                         )
                       }}
                       style={{
-                        padding: '4px 10px',
+                        padding: '4px 12px',
                         borderRadius: 'var(--radius-full)',
                         border: `1px solid ${verdictFilter.includes(v) ? 'var(--coral)' : 'var(--border-glass)'}`,
-                        background: verdictFilter.includes(v) ? 'rgba(227,106,106,0.1)' : 'transparent',
+                        background: verdictFilter.includes(v) ? 'rgba(227,106,106,0.1)' : 'white',
                         color: verdictFilter.includes(v) ? 'var(--coral)' : 'var(--text-secondary)',
-                        fontSize: '0.75rem',
+                        fontSize: '0.72rem',
+                        fontWeight: 600,
                         fontFamily: 'var(--font-mono)',
                         cursor: 'pointer',
+                        transition: 'all 0.2s ease'
                       }}
                     >
                       {v}
@@ -244,25 +238,43 @@ export default function ReportPage() {
                 </div>
               </div>
 
-              <div style={{ minWidth: 160 }}>
-                <label style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 4, display: 'block' }}>
-                  Sort by
-                </label>
-                <select
-                  className="select-field"
-                  value={sortBy}
-                  onChange={e => setSortBy(e.target.value)}
-                  style={{ padding: '6px 10px', fontSize: '0.82rem' }}
-                >
-                  <option value="confidence-desc">Confidence (High to Low)</option>
-                  <option value="confidence-asc">Confidence (Low to High)</option>
-                  <option value="id">Claim ID</option>
-                </select>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', letterSpacing: '1px' }}>
+                  SORT BY
+                </span>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {[
+                    { id: 'confidence-desc', label: 'CONFIDENCE (H-L)' },
+                    { id: 'confidence-asc', label: 'CONFIDENCE (L-H)' },
+                    { id: 'id', label: 'ID' }
+                  ].map(opt => (
+                    <button
+                      key={opt.id}
+                      onClick={() => setSortBy(opt.id)}
+                      style={{
+                        padding: '4px 10px',
+                        borderRadius: 4,
+                        border: `1px solid ${sortBy === opt.id ? 'var(--coral)' : 'var(--border-glass)'}`,
+                        background: sortBy === opt.id ? 'rgba(227,106,106,0.1)' : 'white',
+                        color: sortBy === opt.id ? 'var(--coral)' : 'var(--text-secondary)',
+                        fontSize: '0.68rem',
+                        fontWeight: 600,
+                        fontFamily: 'var(--font-mono)',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
               </div>
+            </div>
 
-              <div style={{ minWidth: 140 }}>
-                <label style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 4, display: 'block' }}>
-                  Min Confidence: {minConfidence}%
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20, padding: '0 4px' }}>
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginBottom: 8, display: 'block', fontFamily: 'var(--font-mono)' }}>
+                  MIN CONFIDENCE: {minConfidence}%
                 </label>
                 <input
                   type="range"
@@ -273,10 +285,9 @@ export default function ReportPage() {
                   onChange={e => setMinConfidence(Number(e.target.value))}
                 />
               </div>
-            </div>
-
-            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: 12 }}>
-              Showing {getFilteredClaims().length} of {result.claims.length} claims
+              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+                Showing {getFilteredClaims().length} of {result.claims.length} claims
+              </div>
             </div>
 
             {getFilteredClaims().map((claim, i) => (

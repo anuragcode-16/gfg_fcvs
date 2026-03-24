@@ -515,6 +515,15 @@ textarea.input-field {
   box-shadow: 0 0 10px currentColor;
 }
 
+.interactive-pie-slice {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center center;
+}
+
+.interactive-pie-slice:hover {
+  filter: brightness(1.15) saturate(1.2);
+}
+
 .metric-value {
   font-family: var(--font-mono);
   font-size: 2rem;
@@ -610,6 +619,43 @@ textarea.input-field {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--coral);
+}
+
+.toolbar-glass {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 12px 20px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+
+.select-field {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  padding-right: 32px !important;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-sm);
+  background-color: white;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-field:focus {
+  outline: none;
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px rgba(227, 106, 106, 0.1);
 }
 
 /* === File Upload ================================================ */

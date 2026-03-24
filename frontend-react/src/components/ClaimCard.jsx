@@ -29,7 +29,6 @@ export default function ClaimCard({ claim, index }) {
       style={{
         marginBottom: 12,
         overflow: 'hidden',
-        borderLeft: `3px solid ${meta.color}`,
         animation: `fadeInUp 0.4s ease-out ${index * 0.05}s both`,
       }}
     >
@@ -120,8 +119,7 @@ export default function ClaimCard({ claim, index }) {
                   <div style={{
                     fontSize: '0.88rem',
                     color: 'var(--text-secondary)',
-                    borderLeft: '2px solid var(--border-glass)',
-                    paddingLeft: 12,
+                    paddingLeft: 0,
                     lineHeight: 1.7,
                   }}>
                     {claim.reasoning}
