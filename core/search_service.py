@@ -97,7 +97,7 @@ def search_for_claim(
 
     all_urls = []
     for q in queries:
-        if progress_callback: progress_callback(f"  🔍 Searching: {q[:60]}...")
+        if progress_callback: progress_callback(f"  Searching: {q[:60]}...")
         
         # PRIORITIZE Tavily since you have a valid key
         found = search_tavily(q, max_urls)

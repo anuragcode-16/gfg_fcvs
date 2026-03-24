@@ -23,9 +23,9 @@ export default function InputSection({
       {/* Tabs */}
       <div className="tabs" style={{ marginBottom: 20 }}>
         {[
-          { key: 'text', label: '📝 Paste Text' },
-          { key: 'url', label: '🌐 Enter URL' },
-          { key: 'pdf', label: '📄 Upload PDF' },
+          { key: 'text', label: 'Paste Text' },
+          { key: 'url', label: 'Enter URL' },
+          { key: 'pdf', label: 'Upload PDF' },
         ].map(tab => (
           <button
             key={tab.key}
@@ -54,7 +54,7 @@ export default function InputSection({
               color: 'var(--text-muted)',
               fontFamily: 'var(--font-mono)',
             }}>
-              📊 {inputText.split(/\s+/).filter(Boolean).length} words
+              {inputText.split(/\s+/).filter(Boolean).length} words
             </div>
           )}
         </div>
@@ -95,9 +95,8 @@ export default function InputSection({
           />
           {pdfFile ? (
             <div>
-              <div style={{ fontSize: '2rem', marginBottom: 8 }}>📄</div>
               <div style={{ fontWeight: 600, color: 'var(--coral)' }}>
-                ✓ {pdfFile.name}
+                {pdfFile.name}
               </div>
               <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: 4 }}>
                 {(pdfFile.size / 1024).toFixed(1)} KB • Click to change
@@ -105,7 +104,6 @@ export default function InputSection({
             </div>
           ) : (
             <div>
-              <div style={{ fontSize: '2.5rem', marginBottom: 12, opacity: 0.5 }}>📁</div>
               <div style={{ fontWeight: 500, color: 'var(--text-secondary)' }}>
                 Drop PDF here or click to upload
               </div>

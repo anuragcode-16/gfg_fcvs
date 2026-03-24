@@ -1,11 +1,11 @@
-/* ═══════════════════════════════════════════════════════════════
-   LumenAI — Global Design System
+/* =================================================================
+   LumenAI - Global Design System
    Glassmorphism + Warm Color Palette
-   ═══════════════════════════════════════════════════════════════ */
+   ================================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-/* ── CSS Variables ─────────────────────────────────────────── */
+/* === CSS Variables ============================================= */
 :root {
   --cream: #FFFBF1;
   --gold-light: #FFF2D0;
@@ -45,7 +45,7 @@
   --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ── Reset & Base ──────────────────────────────────────────── */
+/* === Reset & Base =============================================== */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -72,7 +72,7 @@ body {
   flex-direction: column;
 }
 
-/* ── Glassmorphism Card ────────────────────────────────────── */
+/* === Glassmorphism Card ========================================= */
 .glass-card {
   background: var(--bg-glass);
   backdrop-filter: blur(16px);
@@ -90,14 +90,20 @@ body {
 
 .glass-card-static {
   background: var(--bg-glass);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-glass);
+  box-shadow: 0 8px 32px rgba(227, 106, 106, 0.05);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
-/* ── Buttons ───────────────────────────────────────────────── */
+.glass-card-static:hover {
+  border-color: rgba(227, 106, 106, 0.2);
+  box-shadow: 0 12px 40px rgba(227, 106, 106, 0.08);
+}
+
+/* === Buttons ==================================================== */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -160,7 +166,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* ── Typography ────────────────────────────────────────────── */
+/* === Typography ================================================= */
 .heading-xl {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 800;
@@ -192,7 +198,7 @@ body {
   font-family: var(--font-mono);
 }
 
-/* ── Layout Helpers ────────────────────────────────────────── */
+/* === Layout Helpers ============================================= */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -203,7 +209,7 @@ body {
   padding: 60px 0;
 }
 
-/* ── Animated Background Orbs ──────────────────────────────── */
+/* === Animated Background Orbs =================================== */
 .bg-orbs {
   position: fixed;
   top: 0;
@@ -258,7 +264,7 @@ body {
   75% { transform: translate(15px, 30px) scale(1.02); }
 }
 
-/* ── Tabs ──────────────────────────────────────────────────── */
+/* === Tabs ======================================================= */
 .tabs {
   display: flex;
   gap: 4px;
@@ -294,7 +300,7 @@ body {
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* ── Input Fields ──────────────────────────────────────────── */
+/* === Input Fields =============================================== */
 .input-field {
   width: 100%;
   padding: 14px 18px;
@@ -323,7 +329,7 @@ textarea.input-field {
   line-height: 1.6;
 }
 
-/* ── Select ────────────────────────────────────────────────── */
+/* === Select ===================================================== */
 .select-field {
   width: 100%;
   padding: 10px 14px;
@@ -336,6 +342,8 @@ textarea.input-field {
   outline: none;
   cursor: pointer;
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b80' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
@@ -347,7 +355,7 @@ textarea.input-field {
   box-shadow: 0 0 0 3px rgba(227, 106, 106, 0.1);
 }
 
-/* ── Slider ────────────────────────────────────────────────── */
+/* === Slider ===================================================== */
 .range-slider {
   width: 100%;
   -webkit-appearance: none;
@@ -372,7 +380,7 @@ textarea.input-field {
   transform: scale(1.2);
 }
 
-/* ── Verdict Colors ────────────────────────────────────────── */
+/* === Verdict Colors ============================================= */
 .verdict-true { color: #10b981; }
 .verdict-false { color: #ef4444; }
 .verdict-partial { color: #f59e0b; }
@@ -421,7 +429,7 @@ textarea.input-field {
   border: 1px solid rgba(167, 139, 250, 0.3);
 }
 
-/* ── Terminal Log ──────────────────────────────────────────── */
+/* === Terminal Log =============================================== */
 .terminal-log {
   background: #1a1a2e;
   border-radius: var(--radius-md);
@@ -458,7 +466,7 @@ textarea.input-field {
   user-select: none;
 }
 
-/* ── Progress Bar ──────────────────────────────────────────── */
+/* === Progress Bar =============================================== */
 .progress-bar-track {
   width: 100%;
   height: 8px;
@@ -474,10 +482,37 @@ textarea.input-field {
   transition: width 0.5s ease-out;
 }
 
-/* ── Metric Card ───────────────────────────────────────────── */
+/* === Metric Card ================================================ */
 .metric-card {
   text-align: center;
-  padding: 20px;
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-smooth);
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(227, 106, 106, 0.12);
+  border-color: rgba(227, 106, 106, 0.3);
+}
+
+.hover-glow {
+  transition: all var(--transition-smooth);
+}
+
+.hover-glow:hover {
+  filter: drop-shadow(0 0 8px rgba(227, 106, 106, 0.2));
+  transform: scale(1.02);
+}
+
+.interactive-bar-container {
+  transition: all var(--transition-smooth);
+}
+
+.interactive-bar-container:hover .interactive-bar-fill {
+  filter: brightness(1.1);
+  box-shadow: 0 0 10px currentColor;
 }
 
 .metric-value {
@@ -494,7 +529,7 @@ textarea.input-field {
   font-weight: 500;
 }
 
-/* ── Animations ────────────────────────────────────────────── */
+/* === Animations ================================================= */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -544,7 +579,7 @@ textarea.input-field {
   animation: pulse 2s ease-in-out infinite;
 }
 
-/* ── Responsive ────────────────────────────────────────────── */
+/* === Responsive ================================================= */
 @media (max-width: 768px) {
   .container {
     padding: 0 16px;
@@ -559,7 +594,7 @@ textarea.input-field {
   }
 }
 
-/* ── Custom Scrollbar ──────────────────────────────────────── */
+/* === Custom Scrollbar =========================================== */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -577,7 +612,7 @@ textarea.input-field {
   background: var(--coral);
 }
 
-/* ── File Upload ───────────────────────────────────────────── */
+/* === File Upload ================================================ */
 .file-upload-zone {
   border: 2px dashed var(--border-glass);
   border-radius: var(--radius-md);
@@ -598,7 +633,7 @@ textarea.input-field {
   background: rgba(227, 106, 106, 0.1);
 }
 
-/* ── Expander/Accordion ────────────────────────────────────── */
+/* === Expander/Accordion ========================================= */
 .expander-header {
   display: flex;
   justify-content: space-between;
@@ -629,7 +664,7 @@ textarea.input-field {
   transition: max-height var(--transition-smooth);
 }
 
-/* ── Confidence Bar ────────────────────────────────────────── */
+/* === Confidence Bar ============================================= */
 .confidence-bar-track {
   height: 6px;
   background: rgba(227, 106, 106, 0.1);
@@ -644,7 +679,7 @@ textarea.input-field {
   transition: width 0.5s ease-out;
 }
 
-/* ── Tier Colors ───────────────────────────────────────────── */
+/* === Tier Colors ================================================ */
 .tier-1 { color: #10b981; }
 .tier-2 { color: #3b82f6; }
 .tier-3 { color: #f59e0b; }

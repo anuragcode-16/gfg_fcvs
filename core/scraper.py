@@ -108,12 +108,12 @@ def fetch_url_content(url: str, progress_callback=None) -> dict:
 
     for method_name, scraper_fn in SCRAPER_REGISTRY:
         if progress_callback:
-            progress_callback(f"  → Trying {method_name.upper()} on {domain}...")
+            progress_callback(f"  Trying {method_name.upper()} on {domain}...")
         try:
             content = scraper_fn(url)
             if content and len(content.strip()) > MIN_CONTENT_LENGTH:
                 if progress_callback:
-                    progress_callback(f"  ✓ {method_name.upper()} succeeded")
+                    progress_callback(f"  {method_name.upper()} succeeded")
                 return {
                     "url": url, "content": content[:6000], "method": method_name,
                     "domain": domain, "domain_tier": domain_tier, "success": True,

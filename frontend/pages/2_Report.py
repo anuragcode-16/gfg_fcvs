@@ -8,7 +8,7 @@ import plotly.express as px
 import pandas as pd
 import json
 
-st.set_page_config(page_title="Accuracy Report — FactCheck Engine", layout="wide")
+st.set_page_config(page_title="Accuracy Report - FactCheck Engine", layout="wide")
 
 inject_custom_css()
 
@@ -21,7 +21,7 @@ result = st.session_state.get("session_result", None)
 if not result:
     st.markdown("""
     <div style="text-align:center;padding:4rem 0;font-family:JetBrains Mono,monospace;color:#888888;">
-        <div style="font-size:2rem;margin-bottom:1rem;color:#E36A6A;font-weight:700;">—</div>
+        <div style="font-size:2rem;margin-bottom:1rem;color:#E36A6A;font-weight:700;">-</div>
         <div style="font-size:1.2rem;font-weight:700;color:#64748b;">No Report Yet</div>
         <div style="font-size:0.85rem;margin-top:0.5rem;">Run a fact-check from the Home page or Load a session from History.</div>
     </div>
@@ -270,7 +270,7 @@ with filter_col1:
         default=["TRUE", "FALSE", "PARTIALLY TRUE", "UNVERIFIABLE", "OUTDATED"],
     )
 with filter_col2:
-    sort_by = st.selectbox("Sort by", ["Confidence (High→Low)", "Confidence (Low→High)", "Claim ID"])
+    sort_by = st.selectbox("Sort by", ["Confidence (High to Low)", "Confidence (Low to High)", "Claim ID"])
 with filter_col3:
     min_conf = st.slider("Min Confidence %", 0, 100, 0)
 
@@ -295,7 +295,7 @@ for claim in filtered:
     audited  = claim.get("audit_flagged", False)
 
     with st.expander(
-        f"{meta['emoji']} [{claim_id.upper()}] {claim.get('text', '')[:100]}{'...' if len(claim.get('text','')) > 100 else ''}",
+        f"[{claim_id.upper()}] {claim.get('text', '')[:100]}{'...' if len(claim.get('text','')) > 100 else ''}",
         expanded=False,
     ):
         card_col1, card_col2 = st.columns([5, 1])
@@ -361,8 +361,8 @@ for claim in filtered:
                     <span style="color:{method_color};font-family:JetBrains Mono,monospace;font-size:0.68rem;background:rgba(0,0,0,0.08);padding:1px 6px;border-radius:4px;">{ev.get('method','').upper()}</span>
                     <span style="color:{tier_color};font-family:JetBrains Mono,monospace;font-size:0.68rem;">T{tier}</span>
                     <a href="{ev.get('url','#')}" target="_blank" style="color:#E36A6A;font-size:0.8rem;text-decoration:none;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{ev.get('domain', ev.get('url',''))}</a>
-                    {'<span style="color:#10b981;font-size:0.7rem;">✓ Supporting</span>' if is_supporting else ''}
-                    {'<span style="color:#ef4444;font-size:0.7rem;">✗ Contradicting</span>' if is_contradicting else ''}
+                    {'<span style="color:#10b981;font-size:0.7rem;">Supporting</span>' if is_supporting else ''}
+                    {'<span style="color:#ef4444;font-size:0.7rem;">Contradicting</span>' if is_contradicting else ''}
                   </div>
                 </div>
                 """, unsafe_allow_html=True)

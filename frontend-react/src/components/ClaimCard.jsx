@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 const VERDICT_META = {
-  TRUE: { color: '#10b981', emoji: '✅', cls: 'true' },
-  FALSE: { color: '#ef4444', emoji: '❌', cls: 'false' },
-  'PARTIALLY TRUE': { color: '#f59e0b', emoji: '⚠️', cls: 'partial' },
-  UNVERIFIABLE: { color: '#94a3b8', emoji: '❔', cls: 'unverifiable' },
-  OUTDATED: { color: '#a78bfa', emoji: '🕰️', cls: 'outdated' },
+  TRUE: { color: '#10b981', emoji: '', cls: 'true' },
+  FALSE: { color: '#ef4444', emoji: '', cls: 'false' },
+  'PARTIALLY TRUE': { color: '#f59e0b', emoji: '', cls: 'partial' },
+  UNVERIFIABLE: { color: '#94a3b8', emoji: '', cls: 'unverifiable' },
+  OUTDATED: { color: '#a78bfa', emoji: '', cls: 'outdated' },
 }
 
 const METHOD_COLORS = {
@@ -41,7 +41,7 @@ export default function ClaimCard({ claim, index }) {
       >
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
           <span className={`verdict-badge ${meta.cls}`}>
-            {meta.emoji} {verdict}
+            {verdict}
           </span>
           <span style={{
             fontSize: '0.68rem',
@@ -107,7 +107,7 @@ export default function ClaimCard({ claim, index }) {
                   {claim.type || 'GENERAL'}
                 </span>
                 {claim.temporally_sensitive && (
-                  <span style={{ marginLeft: 8, color: '#f59e0b' }}>⏰ Temporally Sensitive</span>
+                  <span style={{ marginLeft: 8, color: '#f59e0b' }}>Temporally Sensitive</span>
                 )}
               </div>
 
@@ -137,7 +137,7 @@ export default function ClaimCard({ claim, index }) {
                   fontStyle: 'italic',
                   marginBottom: 12,
                 }}>
-                  🤔 <strong>Self-Reflection:</strong> {claim.self_reflection}
+                  <strong>Self-Reflection:</strong> {claim.self_reflection}
                 </div>
               )}
 
@@ -152,7 +152,7 @@ export default function ClaimCard({ claim, index }) {
                   color: '#ef4444',
                   marginBottom: 12,
                 }}>
-                  ⚡ <strong>Conflict Detected:</strong> {claim.contradiction_explanation || 'Sources disagree.'}
+                  <strong>Conflict Detected:</strong> {claim.contradiction_explanation || 'Sources disagree.'}
                 </div>
               )}
 
@@ -167,7 +167,7 @@ export default function ClaimCard({ claim, index }) {
                   color: '#3b82f6',
                   marginBottom: 12,
                 }}>
-                  ⏰ {claim.temporal_note}
+                  {claim.temporal_note}
                 </div>
               )}
             </div>
@@ -267,10 +267,10 @@ export default function ClaimCard({ claim, index }) {
                       {ev.domain || ev.url}
                     </a>
                     {isSupporting && (
-                      <span style={{ fontSize: '0.68rem', color: '#10b981' }}>✓ Supporting</span>
+                      <span style={{ fontSize: '0.68rem', color: '#10b981' }}>Supporting</span>
                     )}
                     {isContradicting && (
-                      <span style={{ fontSize: '0.68rem', color: '#ef4444' }}>✗ Contradicting</span>
+                      <span style={{ fontSize: '0.68rem', color: '#ef4444' }}>Contradicting</span>
                     )}
                   </div>
                 )

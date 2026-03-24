@@ -8,6 +8,7 @@ export default function Navbar() {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/app', label: 'Verify' },
+    { path: '/report', label: 'Report' },
     { path: '/history', label: 'History' },
   ]
 
@@ -31,19 +32,6 @@ export default function Navbar() {
         height: 64,
       }}>
         <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{
-            width: 36,
-            height: 36,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #E36A6A, #FFB2B2)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '1.1rem',
-            boxShadow: '0 2px 12px rgba(227, 106, 106, 0.3)',
-          }}>
-            ✦
-          </div>
           <span style={{
             fontFamily: 'var(--font-sans)',
             fontSize: '1.25rem',

@@ -70,12 +70,10 @@ export default function HistoryPage() {
 
         {loading ? (
           <div style={{ textAlign: 'center', padding: 60 }}>
-            <div style={{ fontSize: '2rem', marginBottom: 12, animation: 'spin 1.5s linear infinite', display: 'inline-block' }}>⚙️</div>
             <div style={{ color: 'var(--text-muted)' }}>Loading history...</div>
           </div>
         ) : (history.length === 0 || error) ? (
           <div className="glass-card-static" style={{ padding: 60, textAlign: 'center' }}>
-            <div style={{ fontSize: '3rem', marginBottom: 12 }}>📁</div>
             <div style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
               No sessions yet
             </div>
@@ -87,7 +85,7 @@ export default function HistoryPage() {
               onClick={() => navigate('/app')}
               style={{ marginTop: 20 }}
             >
-              Start Fact-Checking →
+              Start Fact-Checking
             </button>
           </div>
         ) : (
@@ -162,7 +160,7 @@ export default function HistoryPage() {
                             {history.length - i}
                           </td>
                           <td style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem' }}>
-                            {session.session_id || '—'}
+                            {session.session_id || '-'}
                           </td>
                           <td style={{ padding: '12px 16px' }}>
                             <span style={{
@@ -191,17 +189,20 @@ export default function HistoryPage() {
                             {vc.FALSE || 0}
                           </td>
                           <td style={{ padding: '12px 16px', textAlign: 'center', fontFamily: 'var(--font-mono)' }}>
-                            {typeof aiProb === 'number' ? `${aiProb.toFixed(0)}%` : '—'}
+                            {typeof aiProb === 'number' ? `${aiProb.toFixed(0)}%` : '-'}
                           </td>
                           <td style={{ padding: '12px 16px', textAlign: 'center' }}>
-                            <Link
-                              to={`/report/${session.session_id}`}
+                            <button
                               className="btn-secondary"
-                              onClick={(e) => e.stopPropagation()}
-                              style={{ padding: '4px 12px', fontSize: '0.72rem', textDecoration: 'none' }}
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                localStorage.setItem('lastSessionId', session.session_id)
+                                navigate('/report', { state: { sessionId: session.session_id } })
+                              }}
+                              style={{ padding: '4px 12px', fontSize: '0.72rem' }}
                             >
-                              View
-                            </Link>
+                              Open Report
+                            </button>
                           </td>
                         </tr>
                       )
@@ -239,7 +240,7 @@ export default function HistoryPage() {
                     onClick={() => setSelectedSession(null)}
                     style={{ padding: '6px 14px', fontSize: '0.78rem' }}
                   >
-                    ✕ Close
+                    Close
                   </button>
                 </div>
 

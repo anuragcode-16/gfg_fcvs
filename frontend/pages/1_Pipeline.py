@@ -25,7 +25,7 @@ cols = st.columns(len(STAGES))
 for i, (sid, name) in enumerate(STAGES):
     with cols[i]:
         is_done = result is not None
-        icon = "✓" if is_done else "-"
+        icon = "Done" if is_done else "-"
         color = "#E36A6A" if is_done else "#9CA3AF"
         bg = "rgba(227, 106, 106, 0.05)" if is_done else "#FFFFFF"
         border = f"1px solid {color}" if is_done else "1px solid rgba(227, 106, 106, 0.15)"

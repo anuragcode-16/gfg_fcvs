@@ -197,37 +197,37 @@ SERPAPI_KEY=your-key
 
 ```text
 gfg_fcvs/
-│
-├── core/                   # Backend Logic Library (Data Processing & AI)
-│   ├── ai_detector.py      # AI content probability analysis
-│   ├── config.py           # Environment & Settings loader
-│   ├── domain_trust.py     # Source credibility scoring
-│   ├── llm_client.py       # OpenRouter & Prompt engineering
-│   ├── pipeline.py         # 7-stage orchestrator
-│   ├── scraper.py          # Waterfall scraping logic
-│   ├── search_service.py   # Google CSE & Tavily integration
-│   └── storage.py          # Local JSON persistence
-│
-├── frontend/               # Streamlit Dashboard (Main UI)
-│   ├── Home.py             # Landing page & Pipeline monitor
-│   ├── style.css           # Custom LumenAI branding (Coral/Cream)
-│   ├── utils.py            # UI helper functions
-│   └── pages/              # Multi-page application structure
-│       ├── 1_Pipeline.py
-│       ├── 2_Report.py
-│       └── 3_History.py
-│
-├── backend/                # FastAPI Production Server
-│   └── main.py             # API endpoints for core logic
-│
-├── frontend-react/         # Modern React Frontend (Vite + Tailwind)
-│   ├── src/                # Component-based architecture
-│   └── package.json        # Dependencies & Scripts
-│
-├── .env                    # API Keys (OpenRouter, Google, etc.)
-├── requirements.txt        # Python dependencies
-├── history.json            # Local persistent data
-└── README.md               # Documentation
+|
+|-- core/                   # Backend Logic Library (Data Processing & AI)
+|   |-- ai_detector.py      # AI content probability analysis
+|   |-- config.py           # Environment & Settings loader
+|   |-- domain_trust.py     # Source credibility scoring
+|   |-- llm_client.py       # OpenRouter & Prompt engineering
+|   |-- pipeline.py         # 7-stage orchestrator
+|   |-- scraper.py          # Waterfall scraping logic
+|   |-- search_service.py   # Google CSE & Tavily integration
+|   `-- storage.py          # Local JSON persistence
+|
+|-- frontend/               # Streamlit Dashboard (Main UI)
+|   |-- Home.py             # Landing page & Pipeline monitor
+|   |-- style.css           # Custom LumenAI branding (Coral/Cream)
+|   |-- utils.py            # UI helper functions
+|   `-- pages/              # Multi-page application structure
+|       |-- 1_Pipeline.py
+|       |-- 2_Report.py
+|       `-- 3_History.py
+|
+|-- backend/                # FastAPI Production Server
+|   `-- main.py             # API endpoints for core logic
+|
+|-- frontend-react/         # Modern React Frontend (Vite + Tailwind)
+|   |-- src/                # Component-based architecture
+|   `-- package.json        # Dependencies & Scripts
+|
+|-- .env                    # API Keys (OpenRouter, Google, etc.)
+|-- requirements.txt        # Python dependencies
+|-- history.json            # Local persistent data
+`-- README.md               # Documentation
 ```
 
 ---

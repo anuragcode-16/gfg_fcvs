@@ -4,6 +4,9 @@ pydantic
 httpx
 requests
 tenacity
+fastapi
+uvicorn
+python-multipart
 
 # Scraping
 beautifulsoup4

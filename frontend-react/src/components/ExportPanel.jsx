@@ -57,13 +57,13 @@ export default function ExportPanel({ result }) {
         gap: 12,
       }}>
         <button className="btn-secondary" onClick={downloadJSON} style={{ padding: '14px 20px' }}>
-          📥 Download JSON Report
+          Download JSON Report
         </button>
         <button className="btn-secondary" onClick={downloadCSV} style={{ padding: '14px 20px' }}>
-          📊 Download CSV (Claims)
+          Download CSV (Claims)
         </button>
         <button className="btn-secondary" onClick={downloadAIReport} style={{ padding: '14px 20px' }}>
-          🤖 AI Detection Report
+          AI Detection Report
         </button>
       </div>
     </div>

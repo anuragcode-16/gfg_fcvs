@@ -37,7 +37,7 @@ except ImportError:
 # Native Streamlit navigation is used instead of custom page links.
 
 # ── Hero ──────────────────────────────────────────────────────────────────────
-st.markdown('<div class="fc-hero">Every Claim.<br><span>Verified.</span></div><div class="fc-subtitle">AI-powered fact-checking engine — claim extraction → web evidence → verdict scoring</div>', unsafe_allow_html=True)
+st.markdown('<div class="fc-hero">Every Claim.<br><span>Verified.</span></div><div class="fc-subtitle">AI-powered fact-checking engine - claim extraction -> web evidence -> verdict scoring</div>', unsafe_allow_html=True)
 
 # ── Input Section ─────────────────────────────────────────────────────────────
 st.markdown("### Input Source")
@@ -58,7 +58,7 @@ with tab_pdf:
     uploaded_file = st.file_uploader("Upload PDF document", type=["pdf"], key="pdf_upload")
     if uploaded_file:
         input_pdf_bytes = uploaded_file.read()
-        st.caption(f"✓ PDF loaded: {uploaded_file.name}")
+        st.caption(f"PDF loaded: {uploaded_file.name}")
 
 # Advanced settings moved to popover over input section
 
@@ -119,8 +119,8 @@ if verify_clicked and has_input:
     def render_stages(current_stage: str, done_stages: set):
         rows = ""
         for sid, label in STAGES:
-            if sid in done_stages: icon, cls = "✓", "stage-done"
-            elif sid == current_stage: icon, cls = "▶", "stage-active"
+            if sid in done_stages: icon, cls = "Done", "stage-done"
+            elif sid == current_stage: icon, cls = "Run", "stage-active"
             else: icon, cls = "-", ""
             rows += f'<div class="stage-row {cls}"><span>{icon}</span><span>{label}</span></div>'
         stage_display.markdown(f'<div class="fc-card">{rows}</div>', unsafe_allow_html=True)
@@ -183,7 +183,7 @@ if verify_clicked and has_input:
         if use_persistent_storage:
             save_history(st.session_state.history)
 
-        st.success(f"✓ Pipeline complete — {result['total_claims']} claims verified")
+        st.success(f"Pipeline complete - {result['total_claims']} claims verified")
 
         # --- Quick Results Section ---
         st.markdown("---")
@@ -206,7 +206,7 @@ if verify_clicked and has_input:
                         st.markdown(f"**Verdict:** `{claim.get('verdict', 'N/A')}`")
                         for ev in evidence:
                             tier = ev.get("domain_tier", 4)
-                            tier_icon = {1: "🟢", 2: "🔵", 3: "🟡", 4: "⚪"}.get(tier, "⚪")
+                            tier_icon = ""
                             st.markdown(
                                 f'<div style="margin-bottom:5px;">{tier_icon} <a href="{ev.get("url")}" target="_blank" class="source-link">{ev.get("domain")}</a> <span style="color:#64748b;font-size:0.8rem;">({ev.get("method")})</span></div>',
                                 unsafe_allow_html=True
@@ -215,7 +215,7 @@ if verify_clicked and has_input:
             st.warning("No sources were retrieved for this analysis.")
             
         st.markdown("---")
-        st.warning("View the full interactive report → Report page in the sidebar")
+        st.warning("View the full interactive report - Report page in the sidebar")
         
         if st.button("NEW CHECK"):
             st.session_state.session_result = None

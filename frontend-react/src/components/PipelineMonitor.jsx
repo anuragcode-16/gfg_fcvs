@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react'
 
 const STAGES = [
-  { id: 'stage_01', label: 'Source Auth', icon: '🔐' },
-  { id: 'stage_02', label: 'Claim Extract', icon: '🔬' },
-  { id: 'stage_03', label: 'Query Gen', icon: '🔍' },
-  { id: 'stage_04', label: 'Evidence', icon: '🌐' },
-  { id: 'stage_05', label: 'Verification', icon: '⚖️' },
-  { id: 'stage_06', label: 'Report', icon: '📊' },
-  { id: 'stage_07', label: 'AI Detect', icon: '🤖' },
+  { id: 'stage_01', label: 'Source Auth', icon: '' },
+  { id: 'stage_02', label: 'Claim Extract', icon: '' },
+  { id: 'stage_03', label: 'Query Gen', icon: '' },
+  { id: 'stage_04', label: 'Evidence', icon: '' },
+  { id: 'stage_05', label: 'Verification', icon: '' },
+  { id: 'stage_06', label: 'Report', icon: '' },
+  { id: 'stage_07', label: 'AI Detect', icon: '' },
 ]
 
 function getStageIndex(stageId) {
@@ -33,10 +33,9 @@ export default function PipelineMonitor({
         <h2 className="heading-md">
           {isRunning ? (
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ animation: 'spin 1.5s linear infinite', display: 'inline-block' }}>⚙️</span>
               Live Pipeline
             </span>
-          ) : '✓ Pipeline Complete'}
+          ) : 'Pipeline Complete'}
         </h2>
 
         {isRunning && (
@@ -48,7 +47,7 @@ export default function PipelineMonitor({
               color: '#ef4444',
             }}
           >
-            🛑 Stop
+            Stop
           </button>
         )}
       </div>
@@ -89,11 +88,13 @@ export default function PipelineMonitor({
                 }}
               >
                 <div style={{
-                  fontSize: '1.2rem',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
                   marginBottom: 4,
                   opacity: isPending ? 0.4 : 1,
+                  fontFamily: 'var(--font-mono)',
                 }}>
-                  {isDone ? '✓' : isCurrent ? stage.icon : '○'}
+                  {isDone ? 'DONE' : isCurrent ? 'RUN' : '-'}
                 </div>
                 <div style={{
                   fontSize: '0.68rem',
@@ -122,7 +123,7 @@ export default function PipelineMonitor({
           marginBottom: 12,
           padding: '8px 0',
         }}>
-          {isRunning && <span className="animate-pulse">●</span>} {statusMessage}
+          {statusMessage}
         </div>
       )}
 

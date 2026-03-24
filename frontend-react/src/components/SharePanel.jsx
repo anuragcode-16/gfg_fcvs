@@ -9,7 +9,7 @@ export default function SharePanel({ sessionId, result }) {
   const totalClaims = result?.total_claims || 0
   const scoreLabel = overall >= 70 ? 'High Credibility' : overall >= 40 ? 'Mixed Credibility' : 'Low Credibility'
 
-  const shareText = `LumenAI Fact-Check Report: ${scoreLabel} (${overall.toFixed(1)}/100) — ${totalClaims} claims verified`
+  const shareText = `LumenAI Fact-Check Report: ${scoreLabel} (${overall.toFixed(1)}/100) - ${totalClaims} claims verified`
 
   const copyLink = async () => {
     try {
@@ -45,7 +45,7 @@ export default function SharePanel({ sessionId, result }) {
   }
 
   const shareEmail = () => {
-    const subject = encodeURIComponent(`LumenAI Fact-Check Report — ${scoreLabel}`)
+    const subject = encodeURIComponent(`LumenAI Fact-Check Report - ${scoreLabel}`)
     const body = encodeURIComponent(`${shareText}\n\nView the full interactive report here:\n${shareUrl}`)
     window.location.href = `mailto:?subject=${subject}&body=${body}`
   }
@@ -63,110 +63,54 @@ export default function SharePanel({ sessionId, result }) {
           fontSize: '0.88rem',
           background: copied
             ? 'linear-gradient(135deg, #10b981, #059669)'
-            : undefined,
+            : 'var(--coral)',
         }}
       >
-        {copied ? '✓ Link Copied!' : '🔗 Copy Share Link'}
+        {copied ? 'Link Copied!' : 'Copy Link'}
       </button>
 
       {/* Share Buttons Row */}
-      <div style={{ display: 'flex', gap: 6 }}>
+      <div style={{ display: 'flex', gap: 10 }}>
         {[
-          { icon: '𝕏', label: 'Twitter', onClick: shareTwitter, bg: '#1a1a2e' },
-          { icon: 'in', label: 'LinkedIn', onClick: shareLinkedIn, bg: '#0077b5' },
-          { icon: '💬', label: 'WhatsApp', onClick: shareWhatsApp, bg: '#25D366' },
-          { icon: '✉️', label: 'Email', onClick: shareEmail, bg: 'var(--coral)' },
+          { icon: 'WhatsApp', label: 'WhatsApp', onClick: shareWhatsApp, bg: '#25D366' },
+          { icon: 'Email', label: 'Email', onClick: shareEmail, bg: '#5D8AD4' },
         ].map(s => (
           <button
             key={s.label}
             onClick={s.onClick}
-            title={`Share on ${s.label}`}
             style={{
-              width: 36,
-              height: 36,
-              borderRadius: '50%',
+              padding: '8px 20px',
+              borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-glass)',
               background: 'var(--bg-glass)',
-              backdropFilter: 'blur(10px)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '0.82rem',
-              transition: 'all var(--transition-fast)',
+              fontWeight: 600,
+              transition: 'all var(--transition-smooth)',
               color: 'var(--text-primary)',
+              minWidth: 110,
             }}
             onMouseEnter={e => {
               e.currentTarget.style.background = s.bg
               e.currentTarget.style.color = '#fff'
               e.currentTarget.style.borderColor = s.bg
+              e.currentTarget.style.transform = 'translateY(-2px)'
             }}
             onMouseLeave={e => {
               e.currentTarget.style.background = 'var(--bg-glass)'
               e.currentTarget.style.color = 'var(--text-primary)'
               e.currentTarget.style.borderColor = 'var(--border-glass)'
+              e.currentTarget.style.transform = 'translateY(0)'
             }}
           >
-            {s.icon}
+            {s.label}
           </button>
         ))}
       </div>
 
-      {/* Embed Toggle */}
-      <button
-        onClick={() => setShowEmbed(!showEmbed)}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: 'var(--text-muted)',
-          fontSize: '0.75rem',
-          cursor: 'pointer',
-          fontFamily: 'var(--font-mono)',
-          textDecoration: 'underline',
-        }}
-      >
-        {showEmbed ? 'Hide embed code' : '< / > Embed'}
-      </button>
-
-      {showEmbed && (
-        <div style={{
-          background: '#1a1a2e',
-          borderRadius: 'var(--radius-sm)',
-          padding: '12px 16px',
-          maxWidth: 340,
-          position: 'relative',
-        }}>
-          <code style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.68rem',
-            color: '#10b981',
-            wordBreak: 'break-all',
-            lineHeight: 1.5,
-            display: 'block',
-          }}>
-            {embedCode}
-          </code>
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(embedCode)
-            }}
-            style={{
-              position: 'absolute',
-              top: 8,
-              right: 8,
-              background: 'rgba(255,255,255,0.1)',
-              border: 'none',
-              borderRadius: 4,
-              padding: '2px 8px',
-              color: '#94a3b8',
-              fontSize: '0.68rem',
-              cursor: 'pointer',
-            }}
-          >
-            Copy
-          </button>
-        </div>
-      )}
     </div>
   )
 }

@@ -3,6 +3,7 @@ import LandingPage from './pages/LandingPage'
 import AppPage from './pages/AppPage'
 import HistoryPage from './pages/HistoryPage'
 import ReportPage from './pages/ReportPage'
+import ActiveReportPage from './pages/ActiveReportPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/app" element={<AppPage />} />
+          <Route path="/report" element={<ActiveReportPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/report/:sessionId" element={<ReportPage />} />
         </Routes>

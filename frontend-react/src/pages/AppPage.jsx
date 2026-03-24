@@ -73,6 +73,7 @@ export default function AppPage() {
       const data = await resp.json()
       const sid = data.session_id
       setSessionId(sid)
+      localStorage.setItem('lastSessionId', sid)
 
       const wsHost = API_URL.replace('http', 'ws')
       const ws = new WebSocket(`${wsHost}/ws/pipeline/${sid}`)
@@ -87,6 +88,7 @@ export default function AppPage() {
           setStatusMessage('Pipeline complete!')
           setResult(msg.result)
           ws.close()
+          navigate('/report', { state: { sessionId: sid } })
           return
         }
 
@@ -208,23 +210,35 @@ export default function AppPage() {
               setPdfFile={setPdfFile}
             />
 
-            <AdvancedSettings settings={settings} setSettings={setSettings} />
+            {/* Controls Row */}
+            <div style={{
+              marginTop: 28,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 16,
+            }}>
+              <AdvancedSettings settings={settings} setSettings={setSettings} />
 
-            {/* Verify Button */}
-            <div style={{ marginTop: 28, display: 'flex', gap: 12, alignItems: 'center' }}>
-              <button
-                className="btn-primary"
-                disabled={!hasInput}
-                onClick={handleVerify}
-                style={{ fontSize: '1rem', padding: '16px 40px' }}
-              >
-                ✦ VERIFY CLAIMS
-              </button>
-              {!hasInput && (
-                <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                  Provide input to begin verification
-                </span>
-              )}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                {!hasInput && (
+                  <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                    Provide input to begin
+                  </span>
+                )}
+                <button
+                  className="btn-primary"
+                  disabled={!hasInput}
+                  onClick={handleVerify}
+                  style={{
+                    fontSize: '1rem',
+                    padding: '16px 40px',
+                    minWidth: 200,
+                  }}
+                >
+                  VERIFY CLAIMS
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -249,13 +263,13 @@ export default function AppPage() {
             marginTop: 24,
           }}>
             <div style={{ color: '#ef4444', fontWeight: 600, marginBottom: 8 }}>
-              ⚠️ Pipeline Error
+              Pipeline Error
             </div>
             <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
               {error}
             </div>
             <button className="btn-secondary" onClick={handleNewCheck} style={{ marginTop: 16 }}>
-              🔄 Try Again
+              Try Again
             </button>
           </div>
         )}
@@ -407,7 +421,7 @@ export default function AppPage() {
                       fontWeight: 500,
                     }}
                   >
-                    Open full report page →
+                    Open full report page
                   </Link>
                 </div>
                 <SharePanel sessionId={sessionId} result={result} />
@@ -420,7 +434,7 @@ export default function AppPage() {
             {/* New Check Button */}
             <div style={{ textAlign: 'center', marginTop: 32 }}>
               <button className="btn-primary" onClick={handleNewCheck}>
-                🔄 New Fact-Check
+                New Fact-Check
               </button>
             </div>
           </div>

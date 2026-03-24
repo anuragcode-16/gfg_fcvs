@@ -10,15 +10,15 @@ st.set_page_config(page_title="History — FactCheck Engine", layout="wide")
 
 inject_custom_css()
 
-# ── Sidebar Navigation ─────────────────────────────────────────────────────────
+# --- Sidebar Navigation ---------------------------------------------------------
 # Native Streamlit navigation is used instead of custom page links.
 
-# ── Page Header ────────────────────────────────────────────────────────────────
+# --- Page Header ----------------------------------------------------------------
 
 
 st.markdown("# History")
 
-# ── Retrieve History ───────────────────────────────────────────────────────────
+# --- Retrieve History -----------------------------------------------------------
 # Try session state first, if empty, try loading from file
 if "history" in st.session_state and st.session_state.history:
     history = st.session_state.history
@@ -35,7 +35,7 @@ if not history:
     """, unsafe_allow_html=True)
     st.stop()
 
-# ── Summary Metrics ────────────────────────────────────────────────────────────
+# --- Summary Metrics ------------------------------------------------------------
 h_col1, h_col2, h_col3, h_col4 = st.columns(4)
 with h_col1:
     st.metric("Total Sessions", len(history))

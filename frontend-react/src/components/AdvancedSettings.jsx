@@ -6,19 +6,38 @@ export default function AdvancedSettings({ settings, setSettings }) {
   const update = (key, val) => setSettings(prev => ({ ...prev, [key]: val }))
 
   return (
-    <div className="glass-card-static" style={{ marginTop: 16, overflow: 'hidden' }}>
+    <div style={{ marginTop: 0, overflow: 'visible', position: 'relative' }}>
       <div
-        className="expander-header"
+        className="btn-secondary"
         onClick={() => setOpen(!open)}
+        style={{
+          padding: '16px 32px',
+          fontSize: '1rem',
+          fontWeight: 600,
+          background: open ? 'var(--gold-light)' : 'var(--bg-glass)',
+          borderColor: open ? 'var(--coral)' : 'var(--border-glass)',
+          minWidth: 220,
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: 12,
+        }}
       >
-        <span style={{ fontSize: '0.9rem', fontWeight: 500 }}>
-          ⚙️ Advanced Settings
-        </span>
+        <span>Advanced Settings</span>
         <span className={`expander-arrow ${open ? 'open' : ''}`}>▼</span>
       </div>
 
       {open && (
-        <div style={{ padding: '0 18px 18px', animation: 'fadeInUp 0.3s ease-out' }}>
+        <div className="glass-card-static animate-fade-in-up" style={{
+          position: 'absolute',
+          bottom: 'calc(100% + 12px)',
+          left: 0,
+          width: '550px',
+          maxWidth: '90vw',
+          padding: '24px',
+          zIndex: 1000,
+          boxShadow: 'var(--shadow-elevated)',
+          border: '1px solid var(--coral)',
+        }}>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -81,10 +100,10 @@ export default function AdvancedSettings({ settings, setSettings }) {
                 value={settings.minSourceQuality}
                 onChange={e => update('minSourceQuality', Number(e.target.value))}
               >
-                <option value={1}>🟢 Tier 1 Only (Gov, Academic)</option>
-                <option value={2}>🔵 Tier 1+2 (+ Major News)</option>
-                <option value={3}>🟡 Tier 1-3 (+ Blogs)</option>
-                <option value={4}>⚪ All Sources</option>
+                <option value={1}>Tier 1 (Basic: Gov, Acad)</option>
+                <option value={2}>Tier 2 (Standard: News)</option>
+                <option value={3}>Tier 3 (High: Blogs)</option>
+                <option value={4}>Tier 4 (Advanced: All)</option>
               </select>
             </div>
           </div>

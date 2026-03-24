@@ -104,12 +104,12 @@ def get_domain_score(domain: str) -> float:
 
 def get_tier_label(tier: int) -> str:
     return {
-        0: "⛔ BLOCKED",
-        1: "🟢 Tier 1 — Authoritative",
-        2: "🔵 Tier 2 — Reputable",
-        3: "🟡 Tier 3 — Moderate",
-        4: "⚪ Tier 4 — Unknown",
-    }.get(tier, "⚪ Unknown")
+        0: "BLOCKED",
+        1: "Tier 1 — Authoritative",
+        2: "Tier 2 — Reputable",
+        3: "Tier 3 — Moderate",
+        4: "Tier 4 — Unknown",
+    }.get(tier, "Unknown")
 
 
 def get_domain_from_url(url: str) -> str:
