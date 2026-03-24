@@ -205,11 +205,23 @@ export default function ResultsDashboard({ result }) {
   const tierCounts = {}
   allEvidence.forEach(e => {
     const tier = e.domain_tier || 4
-    const label = { 1: 'Tier 1', 2: 'Tier 2', 3: 'Tier 3', 4: 'Tier 4' }[tier] || 'Unknown'
+    const label = { 
+      1: 'Authoritative', 
+      2: 'Reputable', 
+      3: 'Moderate', 
+      4: 'Others',
+      0: 'BLOCKED'
+    }[tier] || 'Others'
     tierCounts[label] = (tierCounts[label] || 0) + 1
   })
   const maxTier = Math.max(...Object.values(tierCounts), 1)
-  const tierColors = { 'Tier 1': '#10b981', 'Tier 2': '#3b82f6', 'Tier 3': '#f59e0b', 'Tier 4': '#94a3b8' }
+  const tierColors = { 
+    'Authoritative': '#10b981', 
+    'Reputable': '#3b82f6', 
+    'Moderate': '#f59e0b', 
+    'Others': '#94a3b8',
+    'BLOCKED': '#ef4444'
+  }
 
   const FullscreenButton = ({ id }) => (
     <button

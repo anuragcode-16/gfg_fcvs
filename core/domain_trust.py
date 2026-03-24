@@ -108,7 +108,7 @@ def get_tier_label(tier: int) -> str:
         1: "Tier 1 — Authoritative",
         2: "Tier 2 — Reputable",
         3: "Tier 3 — Moderate",
-        4: "Tier 4 — Unknown",
+        4: "Tier 4 — Others",
     }.get(tier, "Unknown")
 
 

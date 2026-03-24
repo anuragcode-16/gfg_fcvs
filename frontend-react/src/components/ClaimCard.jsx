@@ -242,11 +242,21 @@ export default function ClaimCard({ claim, index }) {
                     }}>
                       {(ev.method || '').toUpperCase()}
                     </span>
-                    <span style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.68rem',
-                      color: tierColor,
-                    }}>
+                    <span 
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.68rem',
+                        color: tierColor,
+                        cursor: 'help'
+                      }}
+                      title={{ 
+                        1: 'Tier 1 - Authoritative', 
+                        2: 'Tier 2 - Reputable', 
+                        3: 'Tier 3 - Moderate', 
+                        4: 'Tier 4 - Others',
+                        0: 'BLOCKED'
+                      }[tier]}
+                    >
                       T{tier}
                     </span>
                     <a
