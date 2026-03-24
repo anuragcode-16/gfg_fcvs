@@ -15,6 +15,7 @@ export default function HistoryPage() {
   const [history, setHistory] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null }) // direction: 'asc' | 'desc' | null
   const [selectedSession, setSelectedSession] = useState(null)
   const navigate = useNavigate()
 
@@ -36,6 +37,38 @@ export default function HistoryPage() {
       setLoading(false)
     }
   }
+
+  const requestSort = (key) => {
+    let direction = 'asc'
+    if (sortConfig.key === key) {
+      if (sortConfig.direction === 'asc') direction = 'desc'
+      else if (sortConfig.direction === 'desc') direction = null
+      else direction = 'asc'
+    }
+    setSortConfig({ key, direction })
+  }
+
+  const sortedHistory = (() => {
+    let sortableItems = history.map((item, idx) => ({ ...item, displayIndex: idx + 1 }))
+    if (sortConfig.direction !== null && sortConfig.key) {
+      sortableItems.sort((a, b) => {
+        let aValue = sortConfig.key.split('.').reduce((obj, key) => obj?.[key], a)
+        let bValue = sortConfig.key.split('.').reduce((obj, key) => obj?.[key], b)
+        
+        // Handle numbers and percentages
+        if (typeof aValue === 'string' && aValue.includes('%')) aValue = parseFloat(aValue)
+        if (typeof bValue === 'string' && bValue.includes('%')) bValue = parseFloat(bValue)
+        
+        if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1
+        if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1
+        return 0
+      })
+    } else {
+      // Default: Most recent first
+      sortableItems.reverse()
+    }
+    return sortableItems
+  })()
 
   const totalSessions = history.length
   const avgAccuracy = totalSessions > 0
@@ -127,18 +160,48 @@ export default function HistoryPage() {
                       letterSpacing: '1px',
                     }}>
                       <th style={{ padding: '12px 16px', textAlign: 'left' }}>#</th>
-                      <th style={{ padding: '12px 16px', textAlign: 'left' }}>SESSION</th>
+                      <th 
+                        style={{ padding: '12px 16px', textAlign: 'left', cursor: 'pointer' }}
+                        onClick={() => requestSort('session_id')}
+                      >
+                        SESSION {sortConfig.key === 'session_id' && (sortConfig.direction === 'asc' ? '↓' : sortConfig.direction === 'desc' ? '↑' : '')}
+                      </th>
                       <th style={{ padding: '12px 16px', textAlign: 'left' }}>TYPE</th>
-                      <th style={{ padding: '12px 16px', textAlign: 'center' }}>ACCURACY</th>
-                      <th style={{ padding: '12px 16px', textAlign: 'center' }}>CLAIMS</th>
-                      <th style={{ padding: '12px 16px', textAlign: 'center' }}>TRUE</th>
-                      <th style={{ padding: '12px 16px', textAlign: 'center' }}>FALSE</th>
-                      <th style={{ padding: '12px 16px', textAlign: 'center' }}>AI PROB</th>
+                      <th 
+                        style={{ padding: '12px 16px', textAlign: 'center', cursor: 'pointer' }}
+                        onClick={() => requestSort('overall_accuracy_score')}
+                      >
+                        ACCURACY {sortConfig.key === 'overall_accuracy_score' && (sortConfig.direction === 'asc' ? '↓' : sortConfig.direction === 'desc' ? '↑' : '')}
+                      </th>
+                      <th 
+                        style={{ padding: '12px 16px', textAlign: 'center', cursor: 'pointer' }}
+                        onClick={() => requestSort('total_claims')}
+                      >
+                        CLAIMS {sortConfig.key === 'total_claims' && (sortConfig.direction === 'asc' ? '↓' : sortConfig.direction === 'desc' ? '↑' : '')}
+                      </th>
+                      <th 
+                        style={{ padding: '12px 16px', textAlign: 'center', cursor: 'pointer' }}
+                        onClick={() => requestSort('verdict_counts.TRUE')}
+                      >
+                        TRUE {sortConfig.key === 'verdict_counts.TRUE' && (sortConfig.direction === 'asc' ? '↓' : sortConfig.direction === 'desc' ? '↑' : '')}
+                      </th>
+                      <th 
+                        style={{ padding: '12px 16px', textAlign: 'center', cursor: 'pointer' }}
+                        onClick={() => requestSort('verdict_counts.FALSE')}
+                      >
+                        FALSE {sortConfig.key === 'verdict_counts.FALSE' && (sortConfig.direction === 'asc' ? '↓' : sortConfig.direction === 'desc' ? '↑' : '')}
+                      </th>
+                      <th 
+                        style={{ padding: '12px 16px', textAlign: 'center', cursor: 'pointer' }}
+                        onClick={() => requestSort('ai_detection.ensemble_probability')}
+                      >
+                        AI PROB {sortConfig.key === 'ai_detection.ensemble_probability' && (sortConfig.direction === 'asc' ? '↓' : sortConfig.direction === 'desc' ? '↑' : '')}
+                      </th>
                       <th style={{ padding: '12px 16px', textAlign: 'center' }}>ACTION</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {[...history].reverse().map((session, i) => {
+                    {sortedHistory.map((session, i) => {
                       const vc = session.verdict_counts || {}
                       const acc = session.overall_accuracy_score || 0
                       const accColor = acc >= 70 ? '#10b981' : acc >= 40 ? '#f59e0b' : '#ef4444'
@@ -157,7 +220,7 @@ export default function HistoryPage() {
                           onClick={() => setSelectedSession(session)}
                         >
                           <td style={{ padding: '12px 16px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                            {history.length - i}
+                             {session.displayIndex}
                           </td>
                           <td style={{ padding: '12px 16px', fontFamily: 'var(--font-mono)', fontSize: '0.78rem' }}>
                             {session.session_id || '-'}
