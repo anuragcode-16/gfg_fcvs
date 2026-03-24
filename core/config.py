@@ -15,5 +15,8 @@ class Settings:
     # Optional
     TAVILY_KEY = os.getenv("TAVILY_API_KEY", "")
     SERPAPI_KEY = os.getenv("SERPAPI_KEY", "")
+    # RapidAPI AI Detection
+    RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY", "")
+    RAPIDAPI_HOST = os.getenv("RAPIDAPI_HOST", "")
 
 settings = Settings()   
